@@ -6,6 +6,10 @@ A real-time Cyber Threat Intelligence aggregation and analysis platform. Collect
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+## Preview
+<img width="1920" height="977" alt="Screenshot 2026-03-11 175946" src="https://github.com/user-attachments/assets/2e63120f-624a-47f3-bc06-e8dc868cd021" />
+
+
 ---
 
 ## Features
