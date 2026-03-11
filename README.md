@@ -99,7 +99,7 @@ See [API Keys](#api-keys) below for free signup links.
 python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Or on Windows, double-click **`start.bat`** from the project root.
+Or on Windows, double-click **`start.bat`** from the project root and wait a few seconds for the services to start.
 
 ### 5. Open the Dashboard
 
