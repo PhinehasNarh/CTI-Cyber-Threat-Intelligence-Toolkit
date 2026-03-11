@@ -1,0 +1,61 @@
+# ─── Security: NEVER commit these ─────────────────────────────────
+.env
+*.env
+.env.*
+!.env.example
+backend/.env
+
+# ─── Python ───────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+*.whl
+.venv/
+venv/
+env/
+
+# ─── Database ─────────────────────────────────────────────────────
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# ─── Logs ─────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ─── Node (legacy — not used, but just in case) ──────────────────
+node_modules/
+frontend/node_modules/
+frontend/dist/
+package-lock.json
+
+# ─── IDE / Editor ─────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# ─── OS junk ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# ─── Docker ───────────────────────────────────────────────────────
+docker-compose.override.yml
+
+# ─── Misc ─────────────────────────────────────────────────────────
+.claude/
+*.bak
+*.tmp
+*.temp
