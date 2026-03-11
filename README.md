@@ -64,8 +64,8 @@ CTI Platform
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/cti-platform.git
-cd cti-platform
+git clone https://github.com/PhinehasNarh/CTI
+cd CTI
 ```
 
 ### 2. Install Dependencies
