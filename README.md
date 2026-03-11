@@ -1,6 +1,6 @@
 # CTI Platform
 
-A real-time **Cyber Threat Intelligence** aggregation and analysis platform. Collects security news, indicators of compromise (IOCs), and vulnerability data from open-source feeds, then presents them through an interactive dark-themed dashboard.
+A real-time Cyber Threat Intelligence aggregation and analysis platform. Collects security news, indicators of compromise (IOCs), and vulnerability data from open-source feeds, then presents them through an interactive dark-themed dashboard.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
