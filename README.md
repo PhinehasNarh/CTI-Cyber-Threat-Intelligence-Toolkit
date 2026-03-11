@@ -64,8 +64,9 @@ CTI Platform
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/PhinehasNarh/CTI
-cd CTI
+git clone https://github.com/PhinehasNarh/CTI-Cyber-Threat-Intelligence-Toolkit
+cd CTI-Cyber-Threat-Intelligence-Toolkit
+
 ```
 
 ### 2. Install Dependencies
