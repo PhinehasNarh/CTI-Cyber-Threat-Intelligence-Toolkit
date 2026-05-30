@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create vite@latest frontend -- --template react)",
+      "Bash(where node)",
+      "Bash(where npm)",
+      "Bash(cmd.exe /c \"where node\")",
+      "Bash(cmd.exe /c \"where npm\")",
+      "Bash(cmd.exe /c \"where node 2>NUL && where npm 2>NUL\")",
+      "Bash(export PATH=\"$PATH:/c/Program Files/nodejs:/c/Users/Phinehas_acs/AppData/Roaming/npm\")",
+      "Bash(node --version)",
+      "Bash(npm --version)",
+      "Bash(find \"C:/Users/Phinehas_acs/Downloads/L&D/CTI\" -type f)",
+      "Bash(pip --version)",
+      "Bash(cmd.exe /c \"winget --version\")",
+      "Bash(cmd.exe /c \"choco --version\")",
+      "Bash(cmd.exe /c \"winget --version 2>&1\")",
+      "Bash(powershell.exe -Command \"winget --version\")",
+      "Bash(python -c \":*)",
+      "Bash(git add --dry-run .)"
+    ]
+  }
+}

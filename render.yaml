@@ -1,0 +1,34 @@
+# Render Blueprint for the CTI Platform backend (long-running FastAPI service).
+# The React frontend deploys separately to Vercel (see frontend/vercel.json + DEPLOYMENT.md).
+#
+# Deploy: push to GitHub, then New > Blueprint in the Render dashboard and select this repo.
+services:
+  - type: web
+    name: cti-backend
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      # Set this to your Vercel frontend URL so CORS allows it.
+      - key: FRONTEND_URL
+        sync: false
+      # Optional enrichment / integration keys (leave blank to run without them).
+      - key: VIRUSTOTAL_API_KEY
+        sync: false
+      - key: ABUSEIPDB_API_KEY
+        sync: false
+      - key: SHODAN_API_KEY
+        sync: false
+      - key: MISP_URL
+        sync: false
+      - key: MISP_KEY
+        sync: false
+
+# NOTE on persistence: the free plan has an ephemeral filesystem, so the SQLite
+# DB resets on each deploy/restart. That is usually fine here because the platform
+# re-populates from feeds on startup. For durable storage, either:
+#   (a) attach a Render Disk (paid) and set DATABASE_URL=sqlite+aiosqlite:////data/cti.db, or
+#   (b) point DATABASE_URL at a managed Postgres (e.g. sqlalchemy asyncpg URL).

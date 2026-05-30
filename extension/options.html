@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0a0a14; color: #e0e0e0; padding: 24px; max-width: 420px; }
+    h1 { font-size: 16px; color: #00ff87; }
+    label { display: block; font-size: 12px; color: #888; margin: 14px 0 4px; }
+    input { width: 100%; box-sizing: border-box; padding: 8px; background: #11111a; border: 1px solid #2a2a3a; border-radius: 6px; color: #e0e0e0; }
+    button { margin-top: 16px; padding: 8px 16px; background: rgba(0,255,135,0.12); border: 1px solid rgba(0,255,135,0.3); border-radius: 6px; color: #00ff87; cursor: pointer; }
+    #saved { color: #00ff87; font-size: 12px; margin-left: 10px; }
+  </style>
+</head>
+<body>
+  <h1>CTI Platform Lookup, Settings</h1>
+  <label>Platform base URL</label>
+  <input id="baseUrl" placeholder="http://localhost:8000" />
+  <label>API key (create one in the platform under API Keys)</label>
+  <input id="apiKey" placeholder="cti_…" />
+  <div>
+    <button id="save">Save</button>
+    <span id="saved"></span>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "CTI Platform",
+  "short_name": "CTI",
+  "description": "Cyber Threat Intelligence aggregation and analysis platform",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a14",
+  "theme_color": "#00ff87",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

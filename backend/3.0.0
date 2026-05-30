@@ -1,0 +1,6 @@
+Defaulting to user installation because normal site-packages is not writeable
+Collecting greenlet
+  Downloading greenlet-3.3.2-cp313-cp313-win_amd64.whl.metadata (3.8 kB)
+Downloading greenlet-3.3.2-cp313-cp313-win_amd64.whl (230 kB)
+Installing collected packages: greenlet
+Successfully installed greenlet-3.3.2

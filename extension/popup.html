@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body { width: 300px; margin: 0; font-family: system-ui, sans-serif; background: #0a0a14; color: #e0e0e0; padding: 12px; }
+    h1 { font-size: 13px; margin: 0 0 10px; color: #00ff87; }
+    input { width: 100%; box-sizing: border-box; padding: 8px; background: #11111a; border: 1px solid #2a2a3a; border-radius: 6px; color: #e0e0e0; font-size: 12px; }
+    button { margin-top: 8px; width: 100%; padding: 8px; background: rgba(0,255,135,0.12); border: 1px solid rgba(0,255,135,0.3); border-radius: 6px; color: #00ff87; font-size: 12px; cursor: pointer; }
+    #result { margin-top: 10px; font-size: 12px; line-height: 1.5; white-space: pre-wrap; word-break: break-all; }
+    .muted { color: #888; font-size: 11px; }
+    a { color: #00d4ff; }
+  </style>
+</head>
+<body>
+  <h1>CTI Platform Lookup</h1>
+  <input id="value" placeholder="IP, domain, hash, or URL" />
+  <button id="go">Look up</button>
+  <div id="result"></div>
+  <div class="muted" style="margin-top:10px;"><a href="#" id="opts">Settings</a></div>
+  <script src="popup.js"></script>
+</body>
+</html>

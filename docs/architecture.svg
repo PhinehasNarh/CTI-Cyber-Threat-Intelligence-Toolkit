@@ -1,0 +1,830 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 2250" width="1800" height="2250" font-family="'Segoe UI',system-ui,sans-serif">
+<defs>
+  <!-- Arrow markers -->
+  <marker id="ag" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#00ff87"/></marker>
+  <marker id="ab" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#00d4ff"/></marker>
+  <marker id="ap" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#a78bfa"/></marker>
+  <marker id="aa" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#fbbf24"/></marker>
+  <marker id="ak" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#f472b6"/></marker>
+  <marker id="ar" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#ef4444"/></marker>
+  <marker id="ao" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#fb923c"/></marker>
+  <marker id="aw" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><polygon points="0 0,9 3.5,0 7" fill="#888"/></marker>
+</defs>
+
+<!-- ═══════════ BACKGROUND ═══════════ -->
+<rect width="1800" height="2250" fill="#070710"/>
+
+<!-- ═══════════ TITLE ═══════════ -->
+<rect x="0" y="0" width="1800" height="64" fill="#0d0d1a"/>
+<text x="900" y="28" text-anchor="middle" font-size="19" font-weight="700" fill="#e0e0e0" letter-spacing="1">CTI Platform :  Detailed System Design &amp; Interaction Flowchart</text>
+<text x="900" y="50" text-anchor="middle" font-size="10.5" fill="#555">v0.1.0 · FastAPI · React · SQLite · APScheduler · feedparser · httpx · abuse.ch · VirusTotal · AbuseIPDB · Shodan</text>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: SYSTEM OVERVIEW                                      -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<rect x="10" y="72" width="1780" height="22" rx="4" fill="#111128"/>
+<text x="900" y="87" text-anchor="middle" font-size="11" font-weight="700" fill="#888" letter-spacing="2">① SYSTEM OVERVIEW :  COMPONENT MAP &amp; PRIMARY DATA FLOWS</text>
+
+<!-- Browser/React box -->
+<rect x="20" y="102" width="220" height="250" rx="10" fill="#0a1a0d" stroke="#00ff87" stroke-width="1.5" stroke-opacity=".6"/>
+<text x="130" y="120" text-anchor="middle" font-size="10.5" font-weight="700" fill="#00ff87">BROWSER</text>
+<text x="130" y="134" text-anchor="middle" font-size="9" fill="#00ff8788">React 18 + Vite · :5173</text>
+<line x1="20" y1="140" x2="240" y2="140" stroke="#00ff8722" stroke-width="1"/>
+<text x="30" y="155" font-size="9" fill="#555">Pages:</text>
+<rect x="30" y="160" width="180" height="22" rx="4" fill="#00ff870d" stroke="#00ff8730" stroke-width="1"/>
+<text x="120" y="175" text-anchor="middle" font-size="8.5" fill="#00ff87">Dashboard.jsx</text>
+<rect x="30" y="187" width="180" height="22" rx="4" fill="#00ff870d" stroke="#00ff8730" stroke-width="1"/>
+<text x="120" y="202" text-anchor="middle" font-size="8.5" fill="#00ff87">IOCExplorer.jsx</text>
+<rect x="30" y="214" width="180" height="22" rx="4" fill="#00ff870d" stroke="#00ff8730" stroke-width="1"/>
+<text x="120" y="229" text-anchor="middle" font-size="8.5" fill="#00ff87">NewsFeed.jsx</text>
+<line x1="20" y1="243" x2="240" y2="243" stroke="#00ff8722" stroke-width="1"/>
+<text x="30" y="258" font-size="8.5" fill="#555">api/client.js → fetch() → /api/*</text>
+<text x="30" y="272" font-size="8.5" fill="#555">300ms debounce on filter inputs</text>
+<text x="30" y="286" font-size="8.5" fill="#555">useState / useEffect hooks</text>
+<text x="30" y="300" font-size="8.5" fill="#555">Recharts: Line · Pie · Bar</text>
+<text x="30" y="316" font-size="8.5" fill="#555">Tailwind · Lucide icons</text>
+<text x="30" y="332" font-size="8.5" fill="#555">Dark theme: cti-* CSS vars</text>
+
+<!-- FastAPI Backend box -->
+<rect x="340" y="102" width="300" height="250" rx="10" fill="#00081a0d" stroke="#00d4ff" stroke-width="1.5" stroke-opacity=".6"/>
+<text x="490" y="120" text-anchor="middle" font-size="10.5" font-weight="700" fill="#00d4ff">FASTAPI BACKEND</text>
+<text x="490" y="134" text-anchor="middle" font-size="9" fill="#00d4ff88">Uvicorn · localhost:8000</text>
+<line x1="340" y1="140" x2="640" y2="140" stroke="#00d4ff22" stroke-width="1"/>
+<text x="350" y="155" font-size="8.5" fill="#555">main.py: CORS · router register · lifespan</text>
+<text x="350" y="170" font-size="8.5" fill="#00d4ff99">Routers:</text>
+<rect x="350" y="175" width="272" height="17" rx="3" fill="#00d4ff0a"/>
+<text x="362" y="187" font-size="8" fill="#555">GET /api/dashboard · GET /api/health</text>
+<rect x="350" y="196" width="272" height="17" rx="3" fill="#00d4ff0a"/>
+<text x="362" y="208" font-size="8" fill="#555">GET /api/feed · PATCH /api/feed/{id} · POST /api/feed/poll</text>
+<rect x="350" y="217" width="272" height="17" rx="3" fill="#00d4ff0a"/>
+<text x="362" y="229" font-size="8" fill="#555">GET /api/iocs · GET /api/iocs/stats · POST /api/iocs/lookup · POST /api/iocs/poll</text>
+<line x1="340" y1="238" x2="640" y2="238" stroke="#00d4ff22" stroke-width="1"/>
+<text x="350" y="252" font-size="8.5" fill="#fbbf2499">APScheduler (interval: 30 min):</text>
+<text x="350" y="265" font-size="8.5" fill="#555">→ poll_all_feeds(db) :  8 RSS sources</text>
+<text x="350" y="278" font-size="8.5" fill="#555">→ poll_all_ioc_feeds(db) :  3 abuse.ch APIs</text>
+<line x1="340" y1="285" x2="640" y2="285" stroke="#00d4ff22" stroke-width="1"/>
+<text x="350" y="298" font-size="8.5" fill="#fb923c99">Enrichment Service (on-demand):</text>
+<text x="350" y="311" font-size="8.5" fill="#555">VirusTotal v3 · AbuseIPDB v2 · Shodan InternetDB</text>
+<text x="350" y="327" font-size="8.5" fill="#555">SQLAlchemy 2.0 async · aiosqlite · pydantic-settings</text>
+<text x="350" y="341" font-size="8.5" fill="#555">config.py: .env → Settings (lru_cache)</text>
+
+<!-- SQLite DB (cylinder) -->
+<rect x="740" y="142" width="200" height="90" rx="0" fill="#13001a" stroke="#a78bfa" stroke-width="1.5" stroke-opacity=".6"/>
+<ellipse cx="840" cy="142" rx="100" ry="12" fill="#13001a" stroke="#a78bfa" stroke-width="1.5" stroke-opacity=".6"/>
+<ellipse cx="840" cy="232" rx="100" ry="12" fill="#130022" stroke="#a78bfa" stroke-width="1" stroke-opacity=".4"/>
+<text x="840" y="183" text-anchor="middle" font-size="10.5" font-weight="700" fill="#a78bfa">SQLite</text>
+<text x="840" y="197" text-anchor="middle" font-size="8.5" fill="#a78bfa88">cti.db (aiosqlite)</text>
+<text x="840" y="213" text-anchor="middle" font-size="8" fill="#555">feed_articles · iocs · cves</text>
+<text x="740" y="256" font-size="8" fill="#444">  Base.metadata.create_all on startup</text>
+<text x="740" y="268" font-size="8" fill="#444">  Dedup: unique index on url / value</text>
+<text x="740" y="280" font-size="8" fill="#444">  Async session via get_db()</text>
+<text x="740" y="292" font-size="8" fill="#444">  async_session() for scheduler</text>
+
+<!-- Enrichment APIs box -->
+<rect x="1000" y="102" width="380" height="170" rx="10" fill="#1a1000" stroke="#fb923c" stroke-width="1.5" stroke-opacity=".6"/>
+<text x="1190" y="120" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fb923c">ENRICHMENT APIs (on-demand)</text>
+<text x="1190" y="134" text-anchor="middle" font-size="9" fill="#fb923c88">triggered by POST /api/iocs/lookup</text>
+<line x1="1000" y1="140" x2="1380" y2="140" stroke="#fb923c22" stroke-width="1"/>
+<rect x="1010" y="146" width="110" height="52" rx="5" fill="#fb923c0a" stroke="#fb923c30" stroke-width="1"/>
+<text x="1065" y="163" text-anchor="middle" font-size="9" fill="#fb923c" font-weight="600">VirusTotal</text>
+<text x="1065" y="175" text-anchor="middle" font-size="7.5" fill="#555">api.virustotal.com/v3</text>
+<text x="1065" y="188" text-anchor="middle" font-size="7.5" fill="#555">hash·domain·ip</text>
+<rect x="1130" y="146" width="110" height="52" rx="5" fill="#fb923c0a" stroke="#fb923c30" stroke-width="1"/>
+<text x="1185" y="163" text-anchor="middle" font-size="9" fill="#fb923c" font-weight="600">AbuseIPDB</text>
+<text x="1185" y="175" text-anchor="middle" font-size="7.5" fill="#555">api.abuseipdb.com/v2</text>
+<text x="1185" y="188" text-anchor="middle" font-size="7.5" fill="#555">ip only · 90-day window</text>
+<rect x="1250" y="146" width="120" height="52" rx="5" fill="#fb923c0a" stroke="#fb923c30" stroke-width="1"/>
+<text x="1310" y="163" text-anchor="middle" font-size="9" fill="#fb923c" font-weight="600">Shodan InternetDB</text>
+<text x="1310" y="175" text-anchor="middle" font-size="7.5" fill="#00ff8799">free · no key needed</text>
+<text x="1310" y="188" text-anchor="middle" font-size="7.5" fill="#555">ip only · ports/vulns</text>
+<text x="1010" y="220" font-size="8" fill="#555">Returns list[dict] :  rendered by EnrichmentCard component</text>
+<text x="1010" y="233" font-size="8" fill="#555">httpx.AsyncClient · Timeout(15s) · keys checked before each call</text>
+<text x="1010" y="246" font-size="8" fill="#555">auto-detects IOC type via regex if not provided by caller</text>
+<text x="1010" y="259" font-size="8" fill="#555">greynoise_api_key / otx_api_key defined but not yet wired</text>
+
+<!-- RSS feeds box -->
+<rect x="1000" y="282" width="180" height="72" rx="10" fill="#1a1000" stroke="#fbbf24" stroke-width="1.5" stroke-opacity=".6"/>
+<text x="1090" y="298" text-anchor="middle" font-size="10" font-weight="700" fill="#fbbf24">RSS FEEDS (8)</text>
+<text x="1090" y="312" text-anchor="middle" font-size="7.5" fill="#555">feedparser · poll_all_feeds()</text>
+<text x="1010" y="327" font-size="7.5" fill="#555">Krebs · THN · BleepingComputer</text>
+<text x="1010" y="339" font-size="7.5" fill="#555">CISA · DarkReading · Schneier</text>
+<text x="1010" y="351" font-size="7.5" fill="#555">SANS ISC · Threatpost</text>
+
+<!-- IOC feeds box -->
+<rect x="1200" y="282" width="180" height="72" rx="10" fill="#1a000d" stroke="#f472b6" stroke-width="1.5" stroke-opacity=".6"/>
+<text x="1290" y="298" text-anchor="middle" font-size="10" font-weight="700" fill="#f472b6">IOC FEEDS (3)</text>
+<text x="1290" y="312" text-anchor="middle" font-size="7.5" fill="#555">httpx · poll_all_ioc_feeds()</text>
+<text x="1210" y="327" font-size="7.5" fill="#555">MalwareBazaar (hashes, conf=80)</text>
+<text x="1210" y="339" font-size="7.5" fill="#555">URLhaus (urls, conf=70)</text>
+<text x="1210" y="351" font-size="7.5" fill="#555">ThreatFox (multi-type, conf=feed)</text>
+
+<!-- LEGEND -->
+<rect x="1400" y="282" width="380" height="72" rx="8" fill="#0d0d1a" stroke="#333" stroke-width="1"/>
+<text x="1590" y="297" text-anchor="middle" font-size="9" fill="#888" font-weight="600" letter-spacing="1">DATA FLOW LEGEND</text>
+<line x1="1412" y1="308" x2="1460" y2="308" stroke="#00ff87" stroke-width="1.5" marker-end="url(#ag)"/>
+<text x="1468" y="312" font-size="8" fill="#555">REST request (frontend→backend)</text>
+<line x1="1412" y1="322" x2="1460" y2="322" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#ap)"/>
+<text x="1468" y="326" font-size="8" fill="#555">ORM read/write (backend→SQLite)</text>
+<line x1="1412" y1="336" x2="1460" y2="336" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#aa)"/>
+<text x="1468" y="340" font-size="8" fill="#555">Scheduled poll (every 30 min)</text>
+<line x1="1412" y1="350" x2="1460" y2="350" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#ar)"/>
+<text x="1468" y="354" font-size="8" fill="#555">Error / exception path</text>
+
+<!-- ARROWS: Overview connections -->
+<!-- Browser ↔ Backend (REST) -->
+<line x1="240" y1="196" x2="340" y2="196" stroke="#00ff87" stroke-width="1.5" marker-end="url(#ag)"/>
+<line x1="340" y1="212" x2="240" y2="212" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#ab)"/>
+<text x="290" y="193" text-anchor="middle" font-size="7.5" fill="#00ff87">HTTP</text>
+<text x="290" y="224" text-anchor="middle" font-size="7.5" fill="#00d4ff">JSON</text>
+<!-- Backend → SQLite -->
+<line x1="640" y1="220" x2="740" y2="185" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#ap)"/>
+<text x="688" y="198" text-anchor="middle" font-size="7.5" fill="#a78bfa" transform="rotate(-25,688,198)">ORM</text>
+<!-- Backend scheduler → RSS feeds -->
+<line x1="490" y1="352" x2="1000" y2="320" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#aa)"/>
+<text x="740" y="330" text-anchor="middle" font-size="7.5" fill="#fbbf24">30 min poll</text>
+<!-- Backend scheduler → IOC feeds -->
+<line x1="540" y1="352" x2="1200" y2="325" stroke="#f472b6" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ak)"/>
+<text x="870" y="355" text-anchor="middle" font-size="7.5" fill="#f472b6">30 min poll</text>
+<!-- Enrichment → APIs -->
+<line x1="640" y1="305" x2="1000" y2="185" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#ao)"/>
+<text x="820" y="240" text-anchor="middle" font-size="7.5" fill="#fb923c" transform="rotate(-30,820,240)">on-demand</text>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 2: STARTUP SEQUENCE + SCHEDULER LOOP                   -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<rect x="10" y="368" width="1780" height="18" rx="3" fill="#111128"/>
+<text x="900" y="381" text-anchor="middle" font-size="11" font-weight="700" fill="#888" letter-spacing="2">② APPLICATION STARTUP SEQUENCE (left) · APScheduler 30-MIN LOOP (right)</text>
+
+<!-- Startup sequence (left half: x=20-860) -->
+<rect x="20" y="394" width="840" height="22" rx="4" fill="#00d4ff12"/>
+<text x="440" y="409" text-anchor="middle" font-size="9.5" font-weight="600" fill="#00d4ff">main.py lifespan() :  startup order</text>
+
+<!-- Step boxes -->
+<!-- Step 1 -->
+<rect x="40" y="420" width="24" height="24" rx="12" fill="#00d4ff" /><text x="52" y="436" text-anchor="middle" font-size="9" font-weight="700" fill="#000">1</text>
+<rect x="74" y="420" width="320" height="24" rx="5" fill="#00d4ff0a" stroke="#00d4ff30" stroke-width="1"/>
+<text x="234" y="435" text-anchor="middle" font-size="8.5" fill="#e0e0e0">uvicorn main:app → enters lifespan(app)</text>
+<line x1="52" y1="444" x2="52" y2="450" stroke="#00d4ff50" stroke-width="1"/>
+
+<rect x="40" y="452" width="24" height="24" rx="12" fill="#00d4ff"/><text x="52" y="468" text-anchor="middle" font-size="9" font-weight="700" fill="#000">2</text>
+<rect x="74" y="452" width="320" height="24" rx="5" fill="#00d4ff0a" stroke="#00d4ff30" stroke-width="1"/>
+<text x="234" y="467" text-anchor="middle" font-size="8.5" fill="#e0e0e0">await init_db() → Base.metadata.create_all (idempotent)</text>
+<line x1="52" y1="476" x2="52" y2="482" stroke="#00d4ff50" stroke-width="1"/>
+
+<rect x="40" y="484" width="24" height="24" rx="12" fill="#00d4ff"/><text x="52" y="500" text-anchor="middle" font-size="9" font-weight="700" fill="#000">3</text>
+<rect x="74" y="484" width="320" height="24" rx="5" fill="#00d4ff0a" stroke="#00d4ff30" stroke-width="1"/>
+<text x="234" y="499" text-anchor="middle" font-size="8.5" fill="#e0e0e0">scheduler.add_job(scheduled_feed_poll, 'interval', minutes=30)</text>
+<line x1="52" y1="508" x2="52" y2="514" stroke="#00d4ff50" stroke-width="1"/>
+
+<rect x="40" y="516" width="24" height="24" rx="12" fill="#00d4ff"/><text x="52" y="532" text-anchor="middle" font-size="9" font-weight="700" fill="#000">4</text>
+<rect x="74" y="516" width="320" height="24" rx="5" fill="#00d4ff0a" stroke="#00d4ff30" stroke-width="1"/>
+<text x="234" y="531" text-anchor="middle" font-size="8.5" fill="#e0e0e0">scheduler.start() → background thread running</text>
+<line x1="52" y1="540" x2="52" y2="546" stroke="#00d4ff50" stroke-width="1"/>
+
+<rect x="40" y="548" width="24" height="24" rx="12" fill="#fbbf24"/><text x="52" y="564" text-anchor="middle" font-size="9" font-weight="700" fill="#000">5</text>
+<rect x="74" y="548" width="320" height="24" rx="5" fill="#fbbf240a" stroke="#fbbf2430" stroke-width="1"/>
+<text x="234" y="563" text-anchor="middle" font-size="8.5" fill="#e0e0e0">await poll_all_feeds(db) :  IMMEDIATE initial poll</text>
+<line x1="52" y1="572" x2="52" y2="578" stroke="#fbbf2450" stroke-width="1"/>
+
+<rect x="40" y="580" width="24" height="24" rx="12" fill="#f472b6"/><text x="52" y="596" text-anchor="middle" font-size="9" font-weight="700" fill="#000">6</text>
+<rect x="74" y="580" width="320" height="24" rx="5" fill="#f472b60a" stroke="#f472b630" stroke-width="1"/>
+<text x="234" y="595" text-anchor="middle" font-size="8.5" fill="#e0e0e0">await poll_all_ioc_feeds(db) :  IMMEDIATE initial poll</text>
+<line x1="52" y1="604" x2="52" y2="610" stroke="#f472b650" stroke-width="1"/>
+
+<rect x="40" y="612" width="24" height="24" rx="12" fill="#00ff87"/><text x="52" y="628" text-anchor="middle" font-size="9" font-weight="700" fill="#000">7</text>
+<rect x="74" y="612" width="320" height="24" rx="5" fill="#00ff870a" stroke="#00ff8730" stroke-width="1"/>
+<text x="234" y="627" text-anchor="middle" font-size="8.5" fill="#e0e0e0">yield → app now serving HTTP requests</text>
+<line x1="52" y1="636" x2="52" y2="642" stroke="#88888850" stroke-width="1"/>
+
+<rect x="40" y="644" width="24" height="24" rx="12" fill="#444"/><text x="52" y="660" text-anchor="middle" font-size="9" font-weight="700" fill="#e0e0e0">8</text>
+<rect x="74" y="644" width="320" height="24" rx="5" fill="#ffffff05" stroke="#33333380" stroke-width="1"/>
+<text x="234" y="659" text-anchor="middle" font-size="8.5" fill="#666">SIGTERM → scheduler.shutdown() → graceful stop</text>
+
+<!-- Scheduler loop (right half: x=900-1780) -->
+<rect x="920" y="394" width="840" height="22" rx="4" fill="#fbbf2412"/>
+<text x="1340" y="409" text-anchor="middle" font-size="9.5" font-weight="600" fill="#fbbf24">APScheduler runtime loop (every 30 min)</text>
+
+<!-- Loop boxes, arranged horizontally -->
+<!-- Box 1: Timer fires -->
+<rect x="930" y="422" width="170" height="38" rx="6" fill="#fbbf240a" stroke="#fbbf2440" stroke-width="1.5"/>
+<text x="1015" y="437" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">Timer fires</text>
+<text x="1015" y="450" text-anchor="middle" font-size="8" fill="#555">(t=0, t=30m, t=60m…)</text>
+<line x1="1100" y1="441" x2="1124" y2="441" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+<!-- Box 2: open session -->
+<rect x="1124" y="422" width="170" height="38" rx="6" fill="#a78bfa0a" stroke="#a78bfa40" stroke-width="1.5"/>
+<text x="1209" y="437" text-anchor="middle" font-size="9" fill="#a78bfa" font-weight="600">async with</text>
+<text x="1209" y="450" text-anchor="middle" font-size="8" fill="#555">async_session() as db</text>
+<line x1="1294" y1="441" x2="1318" y2="441" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#ap)"/>
+<!-- Box 3: poll feeds -->
+<rect x="1318" y="422" width="170" height="38" rx="6" fill="#fbbf240a" stroke="#fbbf2440" stroke-width="1.5"/>
+<text x="1403" y="437" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">poll_all_feeds(db)</text>
+<text x="1403" y="450" text-anchor="middle" font-size="8" fill="#555">8 RSS sources</text>
+<line x1="1488" y1="441" x2="1512" y2="441" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+<!-- Box 4: poll IOC -->
+<rect x="1512" y="422" width="180" height="38" rx="6" fill="#f472b60a" stroke="#f472b640" stroke-width="1.5"/>
+<text x="1602" y="437" text-anchor="middle" font-size="9" fill="#f472b6" font-weight="600">poll_all_ioc_feeds(db)</text>
+<text x="1602" y="450" text-anchor="middle" font-size="8" fill="#555">3 abuse.ch sources</text>
+
+<!-- Loop-back arrow (goes down and curves back to "Timer fires") -->
+<line x1="1692" y1="441" x2="1730" y2="441" stroke="#888" stroke-width="1"/>
+<line x1="1730" y1="441" x2="1730" y2="500" stroke="#888" stroke-width="1"/>
+<line x1="1730" y1="500" x2="920" y2="500" stroke="#888" stroke-width="1"/>
+<line x1="920" y1="500" x2="920" y2="461" stroke="#888" stroke-width="1" marker-end="url(#aw)"/>
+<text x="1325" y="516" text-anchor="middle" font-size="8" fill="#555">wait 30 min → repeat</text>
+
+<!-- Total / log line -->
+<rect x="930" y="530" width="440" height="22" rx="4" fill="#ffffff04" stroke="#333" stroke-width="1"/>
+<text x="1150" y="545" text-anchor="middle" font-size="8" fill="#555">logger.info(f"Scheduled poll complete :  {total} new items ingested")</text>
+<rect x="1390" y="530" width="340" height="22" rx="4" fill="#ffffff04" stroke="#333" stroke-width="1"/>
+<text x="1560" y="545" text-anchor="middle" font-size="8" fill="#555">total = sum(rss_results.values()) + sum(ioc_results.values())</text>
+
+<!-- Shutdown note -->
+<rect x="930" y="560" width="780" height="22" rx="4" fill="#ef44440a" stroke="#ef444430" stroke-width="1"/>
+<text x="1320" y="575" text-anchor="middle" font-size="8" fill="#ef4444">SIGTERM → scheduler.shutdown() called in lifespan cleanup (after yield)</text>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: DETAIL SECTION HEADER                               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<rect x="10" y="592" width="1780" height="18" rx="3" fill="#111128"/>
+<text x="900" y="605" text-anchor="middle" font-size="11" font-weight="700" fill="#888" letter-spacing="2">③ DETAILED FLOWCHARTS :  RSS POLLING (left) · IOC POLLING + HTTP FLOW + ENRICHMENT (right)</text>
+
+<!-- Vertical divider between left and right columns -->
+<line x1="880" y1="614" x2="880" y2="2200" stroke="#1a1a2e" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- LEFT COLUMN: RSS FEED POLLING FLOWCHART                        -->
+<!-- Main flow centered at x=430                                    -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<rect x="10" y="614" width="868" height="22" rx="0" fill="#fbbf2410"/>
+<text x="434" y="629" text-anchor="middle" font-size="10" font-weight="700" fill="#fbbf24" letter-spacing="1">RSS FEED POLLING FLOWCHART :  feeds/rss_poller.py :: poll_all_feeds(db)</text>
+
+<!-- Helper macro descriptions for each shape type -->
+<!-- All process boxes: w=240, h=36, rx=6, cx=430 → x=310 -->
+<!-- All diamonds: polygon cx=430 ±100 horizontal, ±30 vertical -->
+<!-- All terminals: w=160, h=28, rx=14, cx=430 → x=350 -->
+
+<!-- TRY block outline -->
+<rect x="22" y="730" width="620" height="1264" rx="6" fill="none" stroke="#fbbf2420" stroke-width="1" stroke-dasharray="6,4"/>
+<text x="30" y="745" font-size="8" fill="#fbbf2444">try:</text>
+
+<!-- EXCEPTION block outline -->
+<rect x="660" y="730" width="210" height="1264" rx="6" fill="#ef44440a" stroke="#ef444430" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="668" y="745" font-size="8" fill="#ef444488">except Exception as e:</text>
+
+<!-- START -->
+<rect x="350" y="644" width="160" height="28" rx="14" fill="#fbbf24"/>
+<text x="430" y="663" text-anchor="middle" font-size="10" font-weight="700" fill="#000">START</text>
+<text x="430" y="676" text-anchor="middle" font-size="8" fill="#fbbf2488">poll_all_feeds(db)</text>
+<line x1="430" y1="672" x2="430" y2="686" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+
+<!-- "For each feed in RSS_FEEDS" → LOOP_FEED target -->
+<!-- ● = loop marker -->
+<circle cx="410" cy="698" r="6" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
+<text x="419" y="702" font-size="7.5" fill="#fbbf24">①</text>
+<rect x="310" y="690" width="240" height="36" rx="6" fill="#100800" stroke="#fbbf24" stroke-width="1.5"/>
+<text x="430" y="710" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">for name, url in RSS_FEEDS.items():</text>
+<text x="430" y="722" text-anchor="middle" font-size="8" fill="#555">iterate dict of 8 source → URL pairs</text>
+<line x1="430" y1="726" x2="430" y2="740" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+
+<!-- feedparser.parse -->
+<rect x="310" y="742" width="240" height="36" rx="6" fill="#0d0d1a" stroke="#fbbf2460" stroke-width="1.5"/>
+<text x="430" y="762" text-anchor="middle" font-size="9" fill="#e0e0e0">feed = feedparser.parse(feed_url)</text>
+<text x="430" y="775" text-anchor="middle" font-size="8" fill="#555">HTTP GET → parse XML/Atom → feed obj</text>
+<line x1="430" y1="778" x2="430" y2="792" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+
+<!-- DIAMOND: bozo AND no entries? -->
+<polygon points="430,792 540,822 430,852 320,822" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="430" y="817" text-anchor="middle" font-size="8.5" fill="#e0e0e0">feed.bozo == True</text>
+<text x="430" y="829" text-anchor="middle" font-size="8.5" fill="#e0e0e0">AND feed.entries = []?</text>
+<!-- YES → right to exception column -->
+<line x1="540" y1="822" x2="658" y2="822" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#ar)"/>
+<text x="596" y="816" text-anchor="middle" font-size="8" fill="#ef4444">YES</text>
+<!-- NO → down -->
+<line x1="430" y1="852" x2="430" y2="866" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+<text x="440" y="862" font-size="8" fill="#fbbf24">NO</text>
+
+<!-- Exception column: bozo warning -->
+<rect x="660" y="808" width="204" height="28" rx="5" fill="#ef44440a" stroke="#ef444440" stroke-width="1"/>
+<text x="762" y="826" text-anchor="middle" font-size="8" fill="#ef4444">log.warning(bozo_exception)</text>
+<!-- arrow from bozo warning down to "more feeds?" -->
+<line x1="762" y1="836" x2="762" y2="1980" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="762" y1="1980" x2="542" y2="1980" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ar)"/>
+<text x="680" y="845" font-size="7" fill="#ef444488">continue (next feed)</text>
+
+<!-- "For each entry" → LOOP_ENTRY target -->
+<circle cx="408" cy="878" r="6" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+<text x="417" y="882" font-size="7.5" fill="#00d4ff">②</text>
+<rect x="310" y="868" width="240" height="36" rx="6" fill="#000810" stroke="#00d4ff" stroke-width="1.5"/>
+<text x="430" y="888" text-anchor="middle" font-size="9" fill="#00d4ff" font-weight="600">for entry in feed.entries:</text>
+<text x="430" y="901" text-anchor="middle" font-size="8" fill="#555">iterate all items in parsed feed</text>
+<line x1="430" y1="904" x2="430" y2="918" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#ab)"/>
+
+<!-- "url = getattr(entry, 'link', None)" -->
+<rect x="310" y="920" width="240" height="36" rx="6" fill="#0d0d1a" stroke="#00d4ff50" stroke-width="1.5"/>
+<text x="430" y="940" text-anchor="middle" font-size="9" fill="#e0e0e0">url = getattr(entry, 'link', None)</text>
+<text x="430" y="953" text-anchor="middle" font-size="8" fill="#555">safely get the article URL field</text>
+<line x1="430" y1="956" x2="430" y2="970" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#ab)"/>
+
+<!-- DIAMOND: url is None? -->
+<polygon points="430,970 540,1000 430,1030 320,1000" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="430" y="997" text-anchor="middle" font-size="8.5" fill="#e0e0e0">url is None?</text>
+<!-- YES → right -->
+<line x1="540" y1="1000" x2="658" y2="1000" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#ar)"/>
+<text x="596" y="994" text-anchor="middle" font-size="8" fill="#ef4444">YES</text>
+<!-- NO → down -->
+<line x1="430" y1="1030" x2="430" y2="1044" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#ab)"/>
+<text x="440" y="1040" font-size="8" fill="#fbbf24">NO</text>
+
+<!-- Exception: skip (url is None) -->
+<rect x="660" y="986" width="204" height="28" rx="5" fill="#ef44440a" stroke="#ef444440" stroke-width="1"/>
+<text x="762" y="1004" text-anchor="middle" font-size="8" fill="#ef4444">continue (skip :  no URL)</text>
+<line x1="762" y1="1014" x2="762" y2="1040" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+<!-- arrow looping back to LOOP_ENTRY -->
+<line x1="762" y1="1040" x2="295" y2="1040" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="295" y1="1040" x2="295" y2="877" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ar)"/>
+
+<!-- DB query: SELECT WHERE url -->
+<rect x="310" y="1046" width="240" height="36" rx="6" fill="#130022" stroke="#a78bfa60" stroke-width="1.5"/>
+<text x="430" y="1066" text-anchor="middle" font-size="9" fill="#a78bfa">existing = await db.execute(</text>
+<text x="430" y="1079" text-anchor="middle" font-size="8" fill="#555">SELECT FeedArticle WHERE url == url)</text>
+<line x1="430" y1="1082" x2="430" y2="1096" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#ap)"/>
+
+<!-- DIAMOND: article exists in DB? -->
+<polygon points="430,1096 540,1126 430,1156 320,1126" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="430" y="1119" text-anchor="middle" font-size="8.5" fill="#e0e0e0">scalar_one_or_none()</text>
+<text x="430" y="1131" text-anchor="middle" font-size="8.5" fill="#e0e0e0">returns a record?</text>
+<!-- YES → right (duplicate, skip) -->
+<line x1="540" y1="1126" x2="658" y2="1126" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#ar)"/>
+<text x="596" y="1120" text-anchor="middle" font-size="8" fill="#ef4444">YES</text>
+<!-- NO → down (new article) -->
+<line x1="430" y1="1156" x2="430" y2="1170" stroke="#00ff87" stroke-width="1.5" marker-end="url(#ag)"/>
+<text x="440" y="1165" font-size="8" fill="#00ff87">NO (new)</text>
+
+<!-- Exception: skip (duplicate) -->
+<rect x="660" y="1112" width="204" height="28" rx="5" fill="#ef44440a" stroke="#ef444440" stroke-width="1"/>
+<text x="762" y="1130" text-anchor="middle" font-size="8" fill="#ef4444">continue (already in DB)</text>
+<line x1="762" y1="1140" x2="762" y2="1170" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="762" y1="1170" x2="295" y2="1170" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="295" y1="1170" x2="295" y2="877" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ar)"/>
+
+<!-- Create FeedArticle -->
+<rect x="310" y="1172" width="240" height="36" rx="6" fill="#001a0d" stroke="#00ff8760" stroke-width="1.5"/>
+<text x="430" y="1192" text-anchor="middle" font-size="9" fill="#00ff87">article = FeedArticle(</text>
+<text x="430" y="1205" text-anchor="middle" font-size="8" fill="#555">title=entry.title[:500], url=url[:1000], source=name)</text>
+<line x1="430" y1="1208" x2="430" y2="1222" stroke="#00ff87" stroke-width="1.5" marker-end="url(#ag)"/>
+
+<!-- extract summary -->
+<rect x="310" y="1224" width="240" height="36" rx="6" fill="#0d0d1a" stroke="#00ff8740" stroke-width="1.5"/>
+<text x="430" y="1244" text-anchor="middle" font-size="9" fill="#e0e0e0">article.summary = _extract_summary(entry)</text>
+<text x="430" y="1257" text-anchor="middle" font-size="8" fill="#555">re.sub HTML tags · truncate to 1000 chars</text>
+<line x1="430" y1="1260" x2="430" y2="1274" stroke="#00ff87" stroke-width="1.5" marker-end="url(#ag)"/>
+
+<!-- extract date -->
+<rect x="310" y="1276" width="240" height="36" rx="6" fill="#0d0d1a" stroke="#00ff8740" stroke-width="1.5"/>
+<text x="430" y="1296" text-anchor="middle" font-size="9" fill="#e0e0e0">article.published = _parse_date(entry)</text>
+<text x="430" y="1309" text-anchor="middle" font-size="8" fill="#555">try published_parsed → updated_parsed → None</text>
+<line x1="430" y1="1312" x2="430" y2="1326" stroke="#00ff87" stroke-width="1.5" marker-end="url(#ag)"/>
+
+<!-- extract categories -->
+<rect x="310" y="1328" width="240" height="36" rx="6" fill="#0d0d1a" stroke="#00ff8740" stroke-width="1.5"/>
+<text x="430" y="1348" text-anchor="middle" font-size="9" fill="#e0e0e0">article.categories = _extract_categories(entry)</text>
+<text x="430" y="1361" text-anchor="middle" font-size="8" fill="#555">entry.tags → labels joined, capped at 10</text>
+<line x1="430" y1="1364" x2="430" y2="1378" stroke="#00ff87" stroke-width="1.5" marker-end="url(#ag)"/>
+
+<!-- db.add + counter -->
+<rect x="310" y="1380" width="240" height="36" rx="6" fill="#001a0d" stroke="#00ff8760" stroke-width="1.5"/>
+<text x="430" y="1400" text-anchor="middle" font-size="9" fill="#00ff87">db.add(article)</text>
+<text x="430" y="1413" text-anchor="middle" font-size="8" fill="#555">new_count += 1</text>
+<line x1="430" y1="1416" x2="430" y2="1430" stroke="#00ff87" stroke-width="1.5" marker-end="url(#ag)"/>
+
+<!-- DIAMOND: more entries? -->
+<polygon points="430,1430 540,1460 430,1490 320,1460" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="430" y="1453" text-anchor="middle" font-size="8.5" fill="#e0e0e0">more entries</text>
+<text x="430" y="1466" text-anchor="middle" font-size="8.5" fill="#e0e0e0">in feed.entries?</text>
+<!-- YES → left loop back -->
+<line x1="320" y1="1460" x2="280" y2="1460" stroke="#00d4ff" stroke-width="1.5"/>
+<line x1="280" y1="1460" x2="280" y2="877" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#ab)"/>
+<text x="265" y="1170" font-size="8" fill="#00d4ff" transform="rotate(-90,265,1170)">YES :  next entry (②)</text>
+<!-- NO → down -->
+<line x1="430" y1="1490" x2="430" y2="1504" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+<text x="440" y="1500" font-size="8" fill="#fbbf24">NO (done)</text>
+
+<!-- await db.commit() -->
+<rect x="310" y="1506" width="240" height="36" rx="6" fill="#130022" stroke="#a78bfa60" stroke-width="1.5"/>
+<text x="430" y="1526" text-anchor="middle" font-size="9" fill="#a78bfa">await db.commit()</text>
+<text x="430" y="1539" text-anchor="middle" font-size="8" fill="#555">flush all db.add() calls to disk</text>
+<line x1="430" y1="1542" x2="430" y2="1556" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+
+<!-- logger.info -->
+<rect x="310" y="1558" width="240" height="36" rx="6" fill="#0d0d1a" stroke="#fbbf2440" stroke-width="1.5"/>
+<text x="430" y="1578" text-anchor="middle" font-size="9" fill="#fbbf24">logger.info(</text>
+<text x="430" y="1591" text-anchor="middle" font-size="8" fill="#555">f"[{name}] Fetched {new_count} new articles")</text>
+<line x1="430" y1="1594" x2="430" y2="1608" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+
+<!-- DIAMOND: exception occurred? -->
+<polygon points="430,1608 540,1638 430,1668 320,1638" fill="#0d0d1a" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2"/>
+<text x="430" y="1631" text-anchor="middle" font-size="8.5" fill="#ef4444">exception</text>
+<text x="430" y="1644" text-anchor="middle" font-size="8.5" fill="#ef4444">caught above?</text>
+<!-- YES → right -->
+<line x1="540" y1="1638" x2="658" y2="1638" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#ar)"/>
+<text x="596" y="1632" text-anchor="middle" font-size="8" fill="#ef4444">YES</text>
+<!-- NO → down -->
+<line x1="430" y1="1668" x2="430" y2="1682" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+<text x="440" y="1678" font-size="8" fill="#fbbf24">NO</text>
+
+<!-- Exception column: rollback -->
+<rect x="660" y="1622" width="204" height="42" rx="5" fill="#ef44440a" stroke="#ef444440" stroke-width="1"/>
+<text x="762" y="1638" text-anchor="middle" font-size="8" fill="#ef4444">await db.rollback()</text>
+<text x="762" y="1651" text-anchor="middle" font-size="8" fill="#ef4444">logger.error(f"[{name}] Poll failed: {e}")</text>
+<line x1="762" y1="1664" x2="762" y2="1754" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="762" y1="1754" x2="542" y2="1754" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ar)"/>
+
+<!-- DIAMOND: more feeds? -->
+<polygon points="430,1682 540,1712 430,1742 320,1712" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="430" y="1705" text-anchor="middle" font-size="8.5" fill="#e0e0e0">more feeds</text>
+<text x="430" y="1718" text-anchor="middle" font-size="8.5" fill="#e0e0e0">in RSS_FEEDS?</text>
+<!-- YES → left loop back to ① -->
+<line x1="320" y1="1712" x2="256" y2="1712" stroke="#fbbf24" stroke-width="1.5"/>
+<line x1="256" y1="1712" x2="256" y2="698" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+<text x="240" y="1210" font-size="8" fill="#fbbf24" transform="rotate(-90,240,1210)">YES :  next feed (①)</text>
+<!-- NO → down -->
+<line x1="430" y1="1742" x2="430" y2="1756" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+<text x="440" y="1753" font-size="8" fill="#fbbf24">NO (all done)</text>
+
+<!-- results dict -->
+<rect x="310" y="1758" width="240" height="36" rx="6" fill="#0d0d1a" stroke="#fbbf2440" stroke-width="1.5"/>
+<text x="430" y="1778" text-anchor="middle" font-size="9" fill="#fbbf24">return results</text>
+<text x="430" y="1791" text-anchor="middle" font-size="8" fill="#555">dict {source_name: new_count, ...}</text>
+<line x1="430" y1="1794" x2="430" y2="1808" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+
+<!-- END -->
+<rect x="350" y="1810" width="160" height="28" rx="14" fill="#fbbf24"/>
+<text x="430" y="1829" text-anchor="middle" font-size="10" font-weight="700" fill="#000">END</text>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- RIGHT COLUMN: IOC POLLING FLOWCHART (3 columns)               -->
+<!-- y=614-1260                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<rect x="882" y="614" width="908" height="22" rx="0" fill="#f472b610"/>
+<text x="1336" y="629" text-anchor="middle" font-size="10" font-weight="700" fill="#f472b6" letter-spacing="1">IOC FEED POLLING :  feeds/ioc_feeds.py :: poll_all_ioc_feeds(db)</text>
+
+<!-- Column headers -->
+<rect x="892" y="638" width="270" height="18" rx="3" fill="#f472b610"/>
+<text x="1027" y="651" text-anchor="middle" font-size="8.5" font-weight="600" fill="#f472b6">MalwareBazaar</text>
+<rect x="1170" y="638" width="270" height="18" rx="3" fill="#f472b610"/>
+<text x="1305" y="651" text-anchor="middle" font-size="8.5" font-weight="600" fill="#f472b6">URLhaus</text>
+<rect x="1448" y="638" width="278" height="18" rx="3" fill="#f472b610"/>
+<text x="1587" y="651" text-anchor="middle" font-size="8.5" font-weight="600" fill="#f472b6">ThreatFox</text>
+
+<!-- IOC COLUMN 1: MalwareBazaar (cx=1027) -->
+<rect x="919" y="658" width="216" height="28" rx="14" fill="#f472b6"/>
+<text x="1027" y="677" text-anchor="middle" font-size="9" font-weight="700" fill="#000">START</text>
+<line x1="1027" y1="686" x2="1027" y2="698" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<rect x="897" y="700" width="260" height="36" rx="6" fill="#0d0d1a" stroke="#f472b640" stroke-width="1.5"/>
+<text x="1027" y="718" text-anchor="middle" font-size="8.5" fill="#e0e0e0">POST mb-api.abuse.ch/api/v1/</text>
+<text x="1027" y="731" text-anchor="middle" font-size="7.5" fill="#555">data={query:get_recent, selector:50}</text>
+<line x1="1027" y1="736" x2="1027" y2="750" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<polygon points="1027,750 1117,778 1027,806 937,778" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="1027" y="774" text-anchor="middle" font-size="8" fill="#e0e0e0">resp ok AND</text>
+<text x="1027" y="785" text-anchor="middle" font-size="8" fill="#e0e0e0">query_status=='ok'?</text>
+<line x1="1027" y1="806" x2="1027" y2="820" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<text x="1037" y="817" font-size="7.5" fill="#f472b6">YES</text>
+<line x1="1117" y1="778" x2="1155" y2="778" stroke="#ef4444" stroke-width="1" marker-end="url(#ar)"/>
+<rect x="1155" y="766" width="24" height="24" rx="4" fill="#ef44440a" stroke="#ef444430" stroke-width="1"/><text x="1167" y="782" text-anchor="middle" font-size="7" fill="#ef4444">0</text>
+
+<!-- IOC loop entry -->
+<circle cx="1007" cy="832" r="5" fill="none" stroke="#f472b6" stroke-width="1.5"/>
+<rect x="897" y="822" width="260" height="30" rx="6" fill="#1a000d" stroke="#f472b6" stroke-width="1.5"/>
+<text x="1027" y="841" text-anchor="middle" font-size="8.5" fill="#f472b6">for sample in data['data']:</text>
+<text x="1027" y="852" text-anchor="middle" font-size="7.5" fill="#555">sha256 = sample.sha256_hash</text>
+<line x1="1027" y1="852" x2="1027" y2="864" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+
+<polygon points="1027,864 1117,892 1027,920 937,892" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="1027" y="885" text-anchor="middle" font-size="8" fill="#e0e0e0">sha256 None OR</text>
+<text x="1027" y="897" text-anchor="middle" font-size="8" fill="#e0e0e0">already in DB?</text>
+<line x1="1027" y1="920" x2="1027" y2="934" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<text x="1037" y="930" font-size="7.5" fill="#f472b6">NO</text>
+<line x1="937" y1="892" x2="892" y2="892" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="892" y1="892" x2="892" y2="837" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ar)"/>
+<text x="878" y="870" font-size="7" fill="#ef4444" transform="rotate(-90,878,870)">YES→skip</text>
+
+<rect x="897" y="936" width="260" height="40" rx="6" fill="#1a000d" stroke="#f472b640" stroke-width="1.5"/>
+<text x="1027" y="952" text-anchor="middle" font-size="8.5" fill="#e0e0e0">ioc = IOC(ioc_type='hash',</text>
+<text x="1027" y="964" text-anchor="middle" font-size="8" fill="#555">value=sha256, source='malwarebazaar',</text>
+<text x="1027" y="975" text-anchor="middle" font-size="8" fill="#555">confidence=80, threat_type, malware_family, tags)</text>
+<line x1="1027" y1="976" x2="1027" y2="990" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+
+<rect x="897" y="992" width="260" height="28" rx="6" fill="#130022" stroke="#a78bfa40" stroke-width="1.5"/>
+<text x="1027" y="1010" text-anchor="middle" font-size="8.5" fill="#a78bfa">db.add(ioc); new_count += 1</text>
+<line x1="1027" y1="1020" x2="1027" y2="1034" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+
+<polygon points="1027,1034 1117,1060 1027,1086 937,1060" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="1027" y="1053" text-anchor="middle" font-size="8" fill="#e0e0e0">more</text>
+<text x="1027" y="1065" text-anchor="middle" font-size="8" fill="#e0e0e0">samples?</text>
+<line x1="937" y1="1060" x2="892" y2="1060" stroke="#f472b6" stroke-width="1.5"/>
+<line x1="892" y1="1060" x2="892" y2="827" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<text x="878" y="950" font-size="7" fill="#f472b6" transform="rotate(-90,878,950)">YES→loop</text>
+<line x1="1027" y1="1086" x2="1027" y2="1100" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<text x="1037" y="1097" font-size="7.5" fill="#f472b6">NO</text>
+
+<rect x="897" y="1102" width="260" height="28" rx="6" fill="#130022" stroke="#a78bfa40" stroke-width="1.5"/>
+<text x="1027" y="1120" text-anchor="middle" font-size="8.5" fill="#a78bfa">await db.commit()</text>
+<line x1="1027" y1="1130" x2="1027" y2="1144" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<rect x="919" y="1146" width="216" height="28" rx="14" fill="#f472b6"/>
+<text x="1027" y="1165" text-anchor="middle" font-size="9" font-weight="700" fill="#000">return new_count</text>
+
+<!-- IOC COLUMN 2: URLhaus (cx=1305) -->
+<rect x="1193" y="658" width="224" height="28" rx="14" fill="#f472b6"/>
+<text x="1305" y="677" text-anchor="middle" font-size="9" font-weight="700" fill="#000">START</text>
+<line x1="1305" y1="686" x2="1305" y2="698" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<rect x="1175" y="700" width="260" height="36" rx="6" fill="#0d0d1a" stroke="#f472b640" stroke-width="1.5"/>
+<text x="1305" y="718" text-anchor="middle" font-size="8.5" fill="#e0e0e0">GET urlhaus-api.abuse.ch/v1/</text>
+<text x="1305" y="731" text-anchor="middle" font-size="7.5" fill="#555">urls/recent/limit/50/</text>
+<line x1="1305" y1="736" x2="1305" y2="750" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<polygon points="1305,750 1395,778 1305,806 1215,778" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="1305" y="774" text-anchor="middle" font-size="8" fill="#e0e0e0">resp.status</text>
+<text x="1305" y="785" text-anchor="middle" font-size="8" fill="#e0e0e0">200 ok?</text>
+<line x1="1305" y1="806" x2="1305" y2="820" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<text x="1315" y="817" font-size="7.5" fill="#f472b6">YES</text>
+<line x1="1395" y1="778" x2="1433" y2="778" stroke="#ef4444" stroke-width="1" marker-end="url(#ar)"/>
+<rect x="1433" y="766" width="24" height="24" rx="4" fill="#ef44440a" stroke="#ef444430" stroke-width="1"/><text x="1445" y="782" text-anchor="middle" font-size="7" fill="#ef4444">0</text>
+
+<circle cx="1285" cy="832" r="5" fill="none" stroke="#f472b6" stroke-width="1.5"/>
+<rect x="1175" y="822" width="260" height="30" rx="6" fill="#1a000d" stroke="#f472b6" stroke-width="1.5"/>
+<text x="1305" y="841" text-anchor="middle" font-size="8.5" fill="#f472b6">for entry in data['urls']:</text>
+<text x="1305" y="852" text-anchor="middle" font-size="7.5" fill="#555">mal_url = entry['url']</text>
+<line x1="1305" y1="852" x2="1305" y2="864" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+
+<polygon points="1305,864 1395,892 1305,920 1215,892" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="1305" y="885" text-anchor="middle" font-size="8" fill="#e0e0e0">url None OR</text>
+<text x="1305" y="897" text-anchor="middle" font-size="8" fill="#e0e0e0">already in DB?</text>
+<line x1="1305" y1="920" x2="1305" y2="934" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<text x="1315" y="930" font-size="7.5" fill="#f472b6">NO</text>
+<line x1="1215" y1="892" x2="1170" y2="892" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="1170" y1="892" x2="1170" y2="827" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ar)"/>
+
+<rect x="1175" y="936" width="260" height="40" rx="6" fill="#1a000d" stroke="#f472b640" stroke-width="1.5"/>
+<text x="1305" y="952" text-anchor="middle" font-size="8.5" fill="#e0e0e0">ioc = IOC(ioc_type='url',</text>
+<text x="1305" y="964" text-anchor="middle" font-size="8" fill="#555">value=mal_url[:1000], source='urlhaus',</text>
+<text x="1305" y="975" text-anchor="middle" font-size="8" fill="#555">confidence=70, threat_type, tags)</text>
+<line x1="1305" y1="976" x2="1305" y2="990" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+
+<rect x="1175" y="992" width="260" height="28" rx="6" fill="#130022" stroke="#a78bfa40" stroke-width="1.5"/>
+<text x="1305" y="1010" text-anchor="middle" font-size="8.5" fill="#a78bfa">db.add(ioc); new_count += 1</text>
+<line x1="1305" y1="1020" x2="1305" y2="1034" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+
+<polygon points="1305,1034 1395,1060 1305,1086 1215,1060" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="1305" y="1053" text-anchor="middle" font-size="8" fill="#e0e0e0">more</text>
+<text x="1305" y="1065" text-anchor="middle" font-size="8" fill="#e0e0e0">urls?</text>
+<line x1="1215" y1="1060" x2="1170" y2="1060" stroke="#f472b6" stroke-width="1.5"/>
+<line x1="1170" y1="1060" x2="1170" y2="827" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<line x1="1305" y1="1086" x2="1305" y2="1100" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<text x="1315" y="1097" font-size="7.5" fill="#f472b6">NO</text>
+
+<rect x="1175" y="1102" width="260" height="28" rx="6" fill="#130022" stroke="#a78bfa40" stroke-width="1.5"/>
+<text x="1305" y="1120" text-anchor="middle" font-size="8.5" fill="#a78bfa">await db.commit()</text>
+<line x1="1305" y1="1130" x2="1305" y2="1144" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<rect x="1193" y="1146" width="224" height="28" rx="14" fill="#f472b6"/>
+<text x="1305" y="1165" text-anchor="middle" font-size="9" font-weight="700" fill="#000">return new_count</text>
+
+<!-- IOC COLUMN 3: ThreatFox (cx=1587) -->
+<rect x="1475" y="658" width="224" height="28" rx="14" fill="#f472b6"/>
+<text x="1587" y="677" text-anchor="middle" font-size="9" font-weight="700" fill="#000">START</text>
+<line x1="1587" y1="686" x2="1587" y2="698" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<rect x="1457" y="700" width="260" height="36" rx="6" fill="#0d0d1a" stroke="#f472b640" stroke-width="1.5"/>
+<text x="1587" y="718" text-anchor="middle" font-size="8.5" fill="#e0e0e0">POST threatfox-api.abuse.ch/api/v1/</text>
+<text x="1587" y="731" text-anchor="middle" font-size="7.5" fill="#555">json={query:get_iocs, days:1}</text>
+<line x1="1587" y1="736" x2="1587" y2="750" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<polygon points="1587,750 1677,778 1587,806 1497,778" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="1587" y="774" text-anchor="middle" font-size="8" fill="#e0e0e0">resp ok AND</text>
+<text x="1587" y="785" text-anchor="middle" font-size="8" fill="#e0e0e0">query_status=='ok'?</text>
+<line x1="1587" y1="806" x2="1587" y2="820" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<text x="1597" y="817" font-size="7.5" fill="#f472b6">YES</text>
+<line x1="1677" y1="778" x2="1720" y2="778" stroke="#ef4444" stroke-width="1" marker-end="url(#ar)"/>
+<rect x="1720" y="766" width="24" height="24" rx="4" fill="#ef44440a" stroke="#ef444430" stroke-width="1"/><text x="1732" y="782" text-anchor="middle" font-size="7" fill="#ef4444">0</text>
+
+<circle cx="1567" cy="832" r="5" fill="none" stroke="#f472b6" stroke-width="1.5"/>
+<rect x="1457" y="822" width="260" height="30" rx="6" fill="#1a000d" stroke="#f472b6" stroke-width="1.5"/>
+<text x="1587" y="841" text-anchor="middle" font-size="8.5" fill="#f472b6">for entry in data['data']:</text>
+<text x="1587" y="852" text-anchor="middle" font-size="7.5" fill="#555">ioc_value = entry['ioc']</text>
+<line x1="1587" y1="852" x2="1587" y2="864" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+
+<polygon points="1587,864 1677,892 1587,920 1497,892" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="1587" y="885" text-anchor="middle" font-size="8" fill="#e0e0e0">value None OR</text>
+<text x="1587" y="897" text-anchor="middle" font-size="8" fill="#e0e0e0">already in DB?</text>
+<line x1="1587" y1="920" x2="1587" y2="934" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<text x="1597" y="930" font-size="7.5" fill="#f472b6">NO</text>
+<line x1="1497" y1="892" x2="1452" y2="892" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="1452" y1="892" x2="1452" y2="827" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ar)"/>
+
+<rect x="1457" y="936" width="260" height="40" rx="6" fill="#1a000d" stroke="#f472b640" stroke-width="1.5"/>
+<text x="1587" y="952" text-anchor="middle" font-size="8.5" fill="#e0e0e0">ioc = IOC(ioc_type=entry['ioc_type'],</text>
+<text x="1587" y="964" text-anchor="middle" font-size="8" fill="#555">value=ioc_value[:1000], source='threatfox',</text>
+<text x="1587" y="975" text-anchor="middle" font-size="8" fill="#555">confidence=entry['confidence_level'], ...)</text>
+<line x1="1587" y1="976" x2="1587" y2="990" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+
+<rect x="1457" y="992" width="260" height="28" rx="6" fill="#130022" stroke="#a78bfa40" stroke-width="1.5"/>
+<text x="1587" y="1010" text-anchor="middle" font-size="8.5" fill="#a78bfa">db.add(ioc); new_count += 1</text>
+<line x1="1587" y1="1020" x2="1587" y2="1034" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+
+<polygon points="1587,1034 1677,1060 1587,1086 1497,1060" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="1587" y="1053" text-anchor="middle" font-size="8" fill="#e0e0e0">more</text>
+<text x="1587" y="1065" text-anchor="middle" font-size="8" fill="#e0e0e0">entries?</text>
+<line x1="1497" y1="1060" x2="1452" y2="1060" stroke="#f472b6" stroke-width="1.5"/>
+<line x1="1452" y1="1060" x2="1452" y2="827" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<line x1="1587" y1="1086" x2="1587" y2="1100" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<text x="1597" y="1097" font-size="7.5" fill="#f472b6">NO</text>
+
+<rect x="1457" y="1102" width="260" height="28" rx="6" fill="#130022" stroke="#a78bfa40" stroke-width="1.5"/>
+<text x="1587" y="1120" text-anchor="middle" font-size="8.5" fill="#a78bfa">await db.commit()</text>
+<line x1="1587" y1="1130" x2="1587" y2="1144" stroke="#f472b6" stroke-width="1.5" marker-end="url(#ak)"/>
+<rect x="1475" y="1146" width="224" height="28" rx="14" fill="#f472b6"/>
+<text x="1587" y="1165" text-anchor="middle" font-size="9" font-weight="700" fill="#000">return new_count</text>
+
+<!-- Convergence box -->
+<rect x="892" y="1184" width="848" height="30" rx="6" fill="#f472b60a" stroke="#f472b640" stroke-width="1.5"/>
+<text x="1336" y="1204" text-anchor="middle" font-size="9" fill="#f472b6">poll_all_ioc_feeds returns results = {malwarebazaar: N, urlhaus: N, threatfox: N}</text>
+<line x1="1027" y1="1174" x2="1027" y2="1184" stroke="#f472b6" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="1305" y1="1174" x2="1305" y2="1184" stroke="#f472b6" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="1587" y1="1174" x2="1587" y2="1184" stroke="#f472b6" stroke-width="1" stroke-dasharray="3,2"/>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- RIGHT COLUMN: HTTP REQUEST LIFECYCLE                           -->
+<!-- y=1226-1560                                                     -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<rect x="882" y="1226" width="908" height="18" rx="0" fill="#00d4ff10"/>
+<text x="1336" y="1239" text-anchor="middle" font-size="10" font-weight="700" fill="#00d4ff" letter-spacing="1">HTTP REQUEST LIFECYCLE :  from user action to DB response</text>
+
+<!-- 3 example flows side by side -->
+<!-- Flow 1: Dashboard load (cx=1020) -->
+<rect x="892" y="1248" width="280" height="16" rx="3" fill="#00ff870d"/>
+<text x="1032" y="1259" text-anchor="middle" font-size="8.5" fill="#00ff87">① Dashboard page mount</text>
+
+<rect x="902" y="1268" width="260" height="30" rx="6" fill="#001a0d" stroke="#00ff8740" stroke-width="1.5"/>
+<text x="1032" y="1285" text-anchor="middle" font-size="8.5" fill="#00ff87">useEffect → getDashboard()</text>
+<text x="1032" y="1297" text-anchor="middle" font-size="7.5" fill="#555">api/client.js: fetch('/api/dashboard')</text>
+<line x1="1032" y1="1298" x2="1032" y2="1310" stroke="#00ff87" stroke-width="1.5" marker-end="url(#ag)"/>
+<rect x="902" y="1312" width="260" height="30" rx="6" fill="#00081a" stroke="#00d4ff40" stroke-width="1.5"/>
+<text x="1032" y="1329" text-anchor="middle" font-size="8.5" fill="#00d4ff">FastAPI: GET /api/dashboard</text>
+<text x="1032" y="1341" text-anchor="middle" font-size="7.5" fill="#555">routers/dashboard.py :: dashboard_overview(db)</text>
+<line x1="1032" y1="1342" x2="1032" y2="1354" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#ap)"/>
+<rect x="902" y="1356" width="260" height="44" rx="6" fill="#130022" stroke="#a78bfa40" stroke-width="1.5"/>
+<text x="1032" y="1371" text-anchor="middle" font-size="8" fill="#a78bfa">5× SELECT COUNT queries</text>
+<text x="1032" y="1383" text-anchor="middle" font-size="7.5" fill="#555">+ recent articles (LIMIT 10)</text>
+<text x="1032" y="1395" text-anchor="middle" font-size="7.5" fill="#555">+ IOC type GROUP BY</text>
+<text x="1032" y="1407" text-anchor="middle" font-size="7.5" fill="#555">+ 7-day IOC trend loop</text>
+<line x1="1032" y1="1400" x2="1032" y2="1412" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#ab)"/>
+<rect x="902" y="1414" width="260" height="30" rx="6" fill="#001a0d" stroke="#00ff8740" stroke-width="1.5"/>
+<text x="1032" y="1431" text-anchor="middle" font-size="8.5" fill="#00ff87">JSON {stats, recent_articles,</text>
+<text x="1032" y="1443" text-anchor="middle" font-size="7.5" fill="#555">ioc_by_type, articles_by_source, ioc_trend}</text>
+<line x1="1032" y1="1444" x2="1032" y2="1456" stroke="#00ff87" stroke-width="1.5" marker-end="url(#ag)"/>
+<rect x="902" y="1458" width="260" height="30" rx="6" fill="#001a0d" stroke="#00ff8720" stroke-width="1.5"/>
+<text x="1032" y="1475" text-anchor="middle" font-size="8.5" fill="#e0e0e0">setData(d) → re-render</text>
+<text x="1032" y="1487" text-anchor="middle" font-size="7.5" fill="#555">charts + stat cards update</text>
+
+<!-- Flow 2: IOC lookup (cx=1336) -->
+<rect x="1172" y="1248" width="328" height="16" rx="3" fill="#fbbf240d"/>
+<text x="1336" y="1259" text-anchor="middle" font-size="8.5" fill="#fbbf24">② IOC lookup (on-demand enrichment)</text>
+
+<rect x="1182" y="1268" width="308" height="30" rx="6" fill="#001a0d" stroke="#fbbf2440" stroke-width="1.5"/>
+<text x="1336" y="1285" text-anchor="middle" font-size="8.5" fill="#fbbf24">user pastes IOC → handleLookup()</text>
+<text x="1336" y="1297" text-anchor="middle" font-size="7.5" fill="#555">lookupIOC(value) → POST /api/iocs/lookup?value=…</text>
+<line x1="1336" y1="1298" x2="1336" y2="1310" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+<rect x="1182" y="1312" width="308" height="30" rx="6" fill="#00081a" stroke="#00d4ff40" stroke-width="1.5"/>
+<text x="1336" y="1329" text-anchor="middle" font-size="8.5" fill="#00d4ff">FastAPI: POST /api/iocs/lookup</text>
+<text x="1336" y="1341" text-anchor="middle" font-size="7.5" fill="#555">detect_ioc_type(value) → enrich_ioc(value, type)</text>
+<line x1="1336" y1="1342" x2="1336" y2="1354" stroke="#fb923c" stroke-width="1.5" marker-end="url(#ao)"/>
+<rect x="1182" y="1356" width="308" height="44" rx="6" fill="#1a1000" stroke="#fb923c40" stroke-width="1.5"/>
+<text x="1336" y="1371" text-anchor="middle" font-size="8" fill="#fb923c">Parallel enrichment calls (httpx):</text>
+<text x="1336" y="1383" text-anchor="middle" font-size="7.5" fill="#555">VirusTotal (if key + type in hash/domain/ip)</text>
+<text x="1336" y="1395" text-anchor="middle" font-size="7.5" fill="#555">AbuseIPDB (if key + type == ip)</text>
+<text x="1336" y="1407" text-anchor="middle" font-size="7.5" fill="#555">Shodan InternetDB (if type == ip · free)</text>
+<line x1="1336" y1="1400" x2="1336" y2="1412" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#ab)"/>
+<rect x="1182" y="1414" width="308" height="30" rx="6" fill="#1a1000" stroke="#fb923c20" stroke-width="1.5"/>
+<text x="1336" y="1431" text-anchor="middle" font-size="8.5" fill="#e0e0e0">{value, detected_type, enrichments: [...]}</text>
+<text x="1336" y="1443" text-anchor="middle" font-size="7.5" fill="#555">each enrichment = {source, field, ...}</text>
+<line x1="1336" y1="1444" x2="1336" y2="1456" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aa)"/>
+<rect x="1182" y="1458" width="308" height="30" rx="6" fill="#001a0d" stroke="#fbbf2420" stroke-width="1.5"/>
+<text x="1336" y="1475" text-anchor="middle" font-size="8.5" fill="#e0e0e0">setLookupResult(result)</text>
+<text x="1336" y="1487" text-anchor="middle" font-size="7.5" fill="#555">EnrichmentCard rendered per source</text>
+
+<!-- Flow 3: Article mark-read (cx=1640) -->
+<rect x="1510" y="1248" width="270" height="16" rx="3" fill="#a78bfa0d"/>
+<text x="1645" y="1259" text-anchor="middle" font-size="8.5" fill="#a78bfa">③ Mark article read / starred</text>
+
+<rect x="1520" y="1268" width="250" height="30" rx="6" fill="#001a0d" stroke="#a78bfa40" stroke-width="1.5"/>
+<text x="1645" y="1285" text-anchor="middle" font-size="8.5" fill="#a78bfa">onClick → handleMarkRead(id)</text>
+<text x="1645" y="1297" text-anchor="middle" font-size="7.5" fill="#555">updateArticle(id, {is_read: true})</text>
+<line x1="1645" y1="1298" x2="1645" y2="1310" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#ap)"/>
+<rect x="1520" y="1312" width="250" height="30" rx="6" fill="#00081a" stroke="#00d4ff40" stroke-width="1.5"/>
+<text x="1645" y="1329" text-anchor="middle" font-size="8.5" fill="#00d4ff">PATCH /api/feed/{article_id}</text>
+<text x="1645" y="1341" text-anchor="middle" font-size="7.5" fill="#555">body: {is_read: true}</text>
+<line x1="1645" y1="1342" x2="1645" y2="1354" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#ap)"/>
+<rect x="1520" y="1356" width="250" height="44" rx="6" fill="#130022" stroke="#a78bfa40" stroke-width="1.5"/>
+<text x="1645" y="1371" text-anchor="middle" font-size="8" fill="#a78bfa">SELECT FeedArticle WHERE id=id</text>
+<text x="1645" y="1383" text-anchor="middle" font-size="7.5" fill="#555">article.is_read = True</text>
+<text x="1645" y="1395" text-anchor="middle" font-size="7.5" fill="#555">await db.commit()</text>
+<text x="1645" y="1407" text-anchor="middle" font-size="7.5" fill="#555">return {status:'updated', id:id}</text>
+<line x1="1645" y1="1400" x2="1645" y2="1412" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#ab)"/>
+<rect x="1520" y="1414" width="250" height="30" rx="6" fill="#130022" stroke="#a78bfa20" stroke-width="1.5"/>
+<text x="1645" y="1431" text-anchor="middle" font-size="8" fill="#e0e0e0">200 OK {status: 'updated'}</text>
+<text x="1645" y="1443" text-anchor="middle" font-size="7.5" fill="#555">optimistic UI: setArticles(prev.map(…))</text>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- RIGHT COLUMN: ENRICHMENT DECISION FLOW                         -->
+<!-- y=1520-1900                                                     -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<rect x="882" y="1510" width="908" height="18" rx="0" fill="#fb923c10"/>
+<text x="1336" y="1523" text-anchor="middle" font-size="10" font-weight="700" fill="#fb923c" letter-spacing="1">IOC TYPE DETECTION + ENRICHMENT DECISION TREE :  services/enrichment.py</text>
+
+<!-- Input -->
+<rect x="1176" y="1534" width="320" height="28" rx="14" fill="#fb923c"/>
+<text x="1336" y="1553" text-anchor="middle" font-size="9" font-weight="700" fill="#000">enrich_ioc(ioc_value, ioc_type=None)</text>
+<line x1="1336" y1="1562" x2="1336" y2="1576" stroke="#fb923c" stroke-width="1.5" marker-end="url(#ao)"/>
+
+<!-- detect type diamond -->
+<polygon points="1336,1576 1476,1610 1336,1644 1196,1610" fill="#0d0d1a" stroke="#fb923c" stroke-width="1.5"/>
+<text x="1336" y="1604" text-anchor="middle" font-size="8.5" fill="#fb923c">ioc_type provided?</text>
+<text x="1336" y="1617" text-anchor="middle" font-size="8.5" fill="#fb923c">else: detect_ioc_type(value)</text>
+<!-- Yes (type known) → right -->
+<line x1="1476" y1="1610" x2="1520" y2="1610" stroke="#fb923c" stroke-width="1.5"/>
+<rect x="1520" y="1596" width="200" height="28" rx="5" fill="#fb923c0a" stroke="#fb923c30" stroke-width="1"/>
+<text x="1620" y="1614" text-anchor="middle" font-size="8" fill="#fb923c">regex match:</text>
+<!-- No (auto-detect) - actually always goes to detect -->
+<line x1="1336" y1="1644" x2="1336" y2="1660" stroke="#fb923c" stroke-width="1.5" marker-end="url(#ao)"/>
+
+<!-- Auto-detect box -->
+<rect x="1176" y="1662" width="320" height="48" rx="6" fill="#0d0d1a" stroke="#fb923c40" stroke-width="1.5"/>
+<text x="1336" y="1679" text-anchor="middle" font-size="8.5" fill="#fb923c">IOC_PATTERNS regex check order:</text>
+<text x="1336" y="1693" text-anchor="middle" font-size="8" fill="#555">1. hash → ^[a-fA-F0-9]{32,64}$</text>
+<text x="1336" y="1706" text-anchor="middle" font-size="8" fill="#555">2. ip → ^\d{1,3}(\.\d{1,3}){3}$  3. domain → ...  4. url → ^https?://  5. unknown</text>
+<line x1="1336" y1="1710" x2="1336" y2="1724" stroke="#fb923c" stroke-width="1.5" marker-end="url(#ao)"/>
+
+<!-- Type dispatch diamond -->
+<polygon points="1336,1724 1456,1756 1336,1788 1216,1756" fill="#0d0d1a" stroke="#e0e0e0" stroke-width="1.5"/>
+<text x="1336" y="1749" text-anchor="middle" font-size="8.5" fill="#e0e0e0">detected</text>
+<text x="1336" y="1762" text-anchor="middle" font-size="8.5" fill="#e0e0e0">ioc_type = ?</text>
+
+<!-- Branch: hash -->
+<line x1="1216" y1="1756" x2="930" y2="1756" stroke="#fb923c" stroke-width="1.5"/>
+<line x1="930" y1="1756" x2="930" y2="1800" stroke="#fb923c" stroke-width="1.5" marker-end="url(#ao)"/>
+<text x="1070" y="1750" text-anchor="middle" font-size="8" fill="#e0e0e0">hash</text>
+<rect x="892" y="1800" width="200" height="40" rx="6" fill="#fb923c0a" stroke="#fb923c40" stroke-width="1.5"/>
+<text x="992" y="1817" text-anchor="middle" font-size="8.5" fill="#fb923c">VirusTotal only</text>
+<text x="992" y="1830" text-anchor="middle" font-size="8" fill="#555">GET /files/{sha256}</text>
+<text x="992" y="1843" text-anchor="middle" font-size="7.5" fill="#444">→ malicious, harmless, reputation, tags</text>
+
+<!-- Branch: domain -->
+<line x1="1296" y1="1788" x2="1200" y2="1820" stroke="#fb923c" stroke-width="1.5" marker-end="url(#ao)"/>
+<text x="1230" y="1808" text-anchor="middle" font-size="8" fill="#e0e0e0">domain</text>
+<rect x="1120" y="1822" width="200" height="40" rx="6" fill="#fb923c0a" stroke="#fb923c40" stroke-width="1.5"/>
+<text x="1220" y="1839" text-anchor="middle" font-size="8.5" fill="#fb923c">VirusTotal only</text>
+<text x="1220" y="1852" text-anchor="middle" font-size="8" fill="#555">GET /domains/{domain}</text>
+<text x="1220" y="1865" text-anchor="middle" font-size="7.5" fill="#444">→ reputation, categories, tags</text>
+
+<!-- Branch: ip (down, center) -->
+<line x1="1336" y1="1788" x2="1336" y2="1820" stroke="#fb923c" stroke-width="1.5" marker-end="url(#ao)"/>
+<text x="1346" y="1808" font-size="8" fill="#e0e0e0">ip</text>
+<rect x="1250" y="1822" width="180" height="28" rx="6" fill="#fb923c0a" stroke="#fb923c60" stroke-width="1.5"/>
+<text x="1340" y="1839" text-anchor="middle" font-size="8.5" fill="#fb923c">All 3 sources checked:</text>
+<line x1="1340" y1="1850" x2="1340" y2="1862" stroke="#fb923c" stroke-width="1.5" marker-end="url(#ao)"/>
+<rect x="1250" y="1864" width="180" height="18" rx="4" fill="#fb923c0a" stroke="#fb923c30" stroke-width="1"/>
+<text x="1340" y="1877" text-anchor="middle" font-size="7.5" fill="#555">VirusTotal /ip_addresses/{ip}</text>
+<rect x="1250" y="1886" width="180" height="18" rx="4" fill="#fb923c0a" stroke="#fb923c30" stroke-width="1"/>
+<text x="1340" y="1899" text-anchor="middle" font-size="7.5" fill="#555">AbuseIPDB /check?ipAddress={ip}</text>
+<rect x="1250" y="1908" width="180" height="18" rx="4" fill="#fb923c0a" stroke="#fb923c30" stroke-width="1"/>
+<text x="1340" y="1921" text-anchor="middle" font-size="7.5" fill="#00ff8799">Shodan InternetDB/{ip} (free)</text>
+
+<!-- Branch: url -->
+<line x1="1376" y1="1788" x2="1490" y2="1820" stroke="#fb923c" stroke-width="1.5" marker-end="url(#ao)"/>
+<text x="1450" y="1808" text-anchor="middle" font-size="8" fill="#e0e0e0">url</text>
+<rect x="1470" y="1822" width="200" height="40" rx="6" fill="#ef44440a" stroke="#ef444430" stroke-width="1.5"/>
+<text x="1570" y="1839" text-anchor="middle" font-size="8.5" fill="#ef4444">No enrichment</text>
+<text x="1570" y="1852" text-anchor="middle" font-size="8" fill="#555">returns [] empty list</text>
+<text x="1570" y="1865" text-anchor="middle" font-size="7.5" fill="#444">(url type not handled)</text>
+
+<!-- Branch: unknown -->
+<line x1="1456" y1="1756" x2="1710" y2="1756" stroke="#888" stroke-width="1.5"/>
+<line x1="1710" y1="1756" x2="1710" y2="1820" stroke="#888" stroke-width="1.5" marker-end="url(#aw)"/>
+<text x="1580" y="1750" text-anchor="middle" font-size="8" fill="#888">unknown</text>
+<rect x="1640" y="1822" width="140" height="40" rx="6" fill="#ffffff04" stroke="#444" stroke-width="1"/>
+<text x="1710" y="1839" text-anchor="middle" font-size="8" fill="#888">returns []</text>
+<text x="1710" y="1852" text-anchor="middle" font-size="7.5" fill="#555">no match</text>
+
+<!-- Converge: all paths → results -->
+<line x1="992" y1="1843" x2="992" y2="1960" stroke="#fb923c" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="1220" y1="1868" x2="1220" y2="1960" stroke="#fb923c" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="1340" y1="1928" x2="1340" y2="1960" stroke="#fb923c" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="1570" y1="1865" x2="1570" y2="1960" stroke="#fb923c" stroke-width="1" stroke-dasharray="3,2"/>
+<line x1="1710" y1="1865" x2="1710" y2="1960" stroke="#888" stroke-width="1" stroke-dasharray="3,2"/>
+
+<rect x="882" y="1960" width="908" height="28" rx="14" fill="#fb923c"/>
+<text x="1336" y="1979" text-anchor="middle" font-size="9" font-weight="700" fill="#000">return results: list[dict], each element = {source, fields...}, rendered as EnrichmentCard in IOCExplorer</text>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                         -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<rect x="0" y="2000" width="1800" height="50" fill="#0d0d1a"/>
+<text x="900" y="2022" text-anchor="middle" font-size="9" fill="#444" letter-spacing="0.5">CTI Platform v0.3.0 · Flowchart Symbols: ▭ = Process  ◇ = Decision  ⬭ = Start/End  ⬡ = Loop target  → = Data flow  - - = Error/exception path</text>
+<text x="900" y="2040" text-anchor="middle" font-size="9" fill="#333">Left column: RSS feed polling algorithm with all decision branches and loop-backs · Right column top: IOC polling (3 parallel sources) · Right column mid: HTTP lifecycle (3 example flows) · Right column bot: Enrichment dispatch tree</text>
+</svg>

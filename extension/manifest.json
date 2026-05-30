@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "CTI Platform Lookup",
+  "version": "1.0.0",
+  "description": "Right-click any selected IP, domain, hash, or URL to look it up in your CTI Platform.",
+  "permissions": ["contextMenus", "storage", "notifications"],
+  "host_permissions": ["http://localhost:8000/*", "http://127.0.0.1:8000/*", "https://*/*"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "CTI Lookup",
+    "default_icon": { "48": "icon.png" }
+  },
+  "icons": { "48": "icon.png" },
+  "options_page": "options.html"
+}

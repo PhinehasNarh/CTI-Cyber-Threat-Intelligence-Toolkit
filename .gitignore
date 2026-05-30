@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.db
+backend/.env
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Env (keep .env.example committed)
+.env
+.env.local
+frontend/.env
+frontend/.env.local
+
+# Vercel
+.vercel/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Stray artifact from a prior botched redirect (not part of the project)
+*cleanup_result.txt
