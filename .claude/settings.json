@@ -16,7 +16,9 @@
       "Bash(node -e \"const fs=require\\('fs'\\);const t=fs.readFileSync\\('docs/architecture.svg','utf8'\\);console.log\\('v0.1.0_left='+\\(t.match\\(/v0\\\\.1\\\\.0/g\\)||[]\\).length\\);console.log\\('v0.3.0_count='+\\(t.match\\(/v0\\\\.3\\\\.0/g\\)||[]\\).length\\);console.log\\('bad_dict_colon='+\\(t.match\\(/\\\\]\\\\s*:\\\\s*each element/g\\)||[]\\).length\\);console.log\\('bad_legend='+\\(t.match\\(/target\\\\s*:\\\\s*=\\\\s*Data/g\\)||[]\\).length\\);console.log\\('dashes='+\\(t.match\\(/[—–]/g\\)||[]\\).length\\);\")",
       "Bash(node -e \"const fs=require\\('fs'\\);const t=fs.readFileSync\\('docs/architecture.svg','utf8'\\);console.log\\('v010_left='+\\(t.match\\(/v0\\\\.1\\\\.0/g\\)||[]\\).length,'v030='+\\(t.match\\(/v0\\\\.3\\\\.0/g\\)||[]\\).length,'bad_colon='+\\(t.match\\(/\\\\]\\\\s*:\\\\s*each element/g\\)||[]\\).length,'bad_legend='+\\(t.match\\(/target\\\\s*:\\\\s*=\\\\s*Data/g\\)||[]\\).length,'dashes='+\\(t.match\\(/[—–]/g\\)||[]\\).length\\);\")",
       "Bash(node -e \"const fs=require\\('fs'\\);console.log\\('ctiwork_exists='+fs.existsSync\\('ctiwork'\\)\\);console.log\\('root='+fs.readdirSync\\('.'\\).join\\(','\\)\\);\")",
-      "Bash(git --no-pager log --oneline)"
+      "Bash(git --no-pager log --oneline)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const t=fs.readFileSync\\('README.md','utf8'\\).split\\('\\\\n'\\);t.forEach\\(\\(l,i\\)=>{if\\(/[—–]/.test\\(l\\)\\)console.log\\(\\(i+1\\)+': '+l.replace\\(/—/g,'{EM}'\\).replace\\(/–/g,'{EN}'\\)\\);}\\);\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const t=fs.readFileSync\\('README.md','utf8'\\).split\\('\\\\n'\\);let found=0;t.forEach\\(\\(l,i\\)=>{if\\(/[—–]/.test\\(l\\)\\){found++;console.log\\('LINE'+\\(i+1\\)+'||'+l.replace\\(/—/g,'{EM}'\\).replace\\(/–/g,'{EN}'\\).slice\\(0,160\\)\\);}}\\);console.log\\('FOUND='+found\\);\")"
     ]
   }
 }
