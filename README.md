@@ -1,186 +1,142 @@
 # CTI Platform
 
-A real-time Cyber Threat Intelligence aggregation and analysis platform. Collects security news, indicators of compromise (IOCs), and vulnerability data from open-source feeds, then presents them through an interactive dark-themed dashboard.
+A self-contained Cyber Threat Intelligence platform. It polls security news and indicator feeds on a schedule, stores everything in a local SQLite database, enriches indicators on demand, and serves it all through a React dashboard. It runs on your own machine or in Docker and needs no cloud infrastructure beyond a few optional free-tier API keys.
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## Preview
 <img width="1920" height="977" alt="Screenshot 2026-03-11 175946" src="https://github.com/user-attachments/assets/2e63120f-624a-47f3-bc06-e8dc868cd021" />
 
-
 ---
 
-## Features
+## What it does
 
-| Module | Description |
-|--------|-------------|
-| **Dashboard** | Real-time threat overview with charts, stats, and a live severity-tagged feed |
-| **News Feed** | Aggregates 8+ security RSS feeds (Krebs, CISA, Dark Reading, Bleeping Computer, etc.) |
-| **IOC Explorer** | Collects IOCs from MalwareBazaar, URLhaus, ThreatFox with enrichment via VirusTotal |
-| **KEV Catalog** | Syncs CISA Known Exploited Vulnerabilities with search and filtering |
-| **IP Intelligence** | Consolidated IP lookups across AbuseIPDB, Shodan InternetDB, and GreyNoise |
-| **Domain Reputation** | Domain analysis via VirusTotal with detection breakdown |
-| **Settings & Logs** | API key management, system health monitoring, and live log viewer |
+The backend polls 8 security RSS feeds (Krebs, The Hacker News, Bleeping Computer, CISA, Dark Reading, Schneier, SANS ISC, Threatpost) and three abuse.ch IOC feeds (MalwareBazaar, URLhaus, ThreatFox) every 30 minutes. An immediate poll runs on startup so the dashboard has data on first load. Indicators can be enriched on demand against VirusTotal, AbuseIPDB, and Shodan InternetDB.
+
+On top of that core, v0.3.0 adds a wide feature set, each with its own backend router and frontend page:
+
+| Area | Features |
+|------|----------|
+| **Intelligence** | Threat actor profiles and a printable wanted-poster generator, campaign tracker, IOC correlation graph, offline article summaries, behavioural clustering (TF-IDF), and a rule-based threat-intel assistant |
+| **Workflow** | Rule-based alert engine, team notes and tagging, triage queue, audit log, analyst leaderboard, a localStorage workbench and custom dashboard builder, and a copy-to-Markdown intel digest |
+| **Visualisation** | Article reading mode with IOC highlighting, world threat map (free ip-api.com), and time-lapse replay |
+| **Integrations** | CT log watcher (crt.sh), Shodan asset watch (free InternetDB), honeypot sink, and config-gated MISP/OpenCTI and dark-web hooks |
+| **Platform** | Public REST API with scoped API keys and rate limiting, custom per-feed scheduler, a plugin/feed SDK, a Manifest V3 browser extension, multi-tenant workspaces, data retention policies, and PWA install support |
+
+LLM-style features (summaries, the assistant) are built offline with heuristics, not a hosted model, so they work without any paid keys. Key-gated integrations degrade to a clear "not configured" state.
 
 ## Architecture
 
 ```
-CTI Platform
-├── backend/                 # Python FastAPI server
-│   ├── main.py              # Entry point, scheduler, middleware
-│   ├── config.py            # Pydantic settings (.env loader)
-│   ├── database.py          # SQLAlchemy async engine (SQLite)
-│   ├── models.py            # DB models: FeedArticle, IOC, CVE
-│   ├── feeds/               # Feed pollers
-│   │   ├── rss_poller.py    # 8 security RSS feeds
-│   │   ├── ioc_feeds.py     # MalwareBazaar, URLhaus, ThreatFox
-│   │   └── kev_sync.py      # CISA KEV catalog sync
-│   ├── services/            # Business logic
-│   │   ├── enrichment.py    # IOC enrichment (VT, AbuseIPDB)
-│   │   └── ip_intel.py      # IP intel + domain rep lookups
-│   ├── routers/             # API endpoints
-│   │   ├── feed.py          # /api/feed
-│   │   ├── iocs.py          # /api/iocs
-│   │   ├── dashboard.py     # /api/dashboard
-│   │   ├── kev.py           # /api/kev
-│   │   ├── intel.py         # /api/intel
-│   │   └── settings.py      # /api/settings + /api/settings/logs
-│   ├── static/              # Frontend (served by FastAPI)
-│   │   ├── index.html       # Single-page app shell
-│   │   └── js/              # React components (no build step)
-│   ├── logs/                # Auto-generated log files
-│   └── .env                 # API keys (DO NOT COMMIT)
-├── .env.example             # Template for environment variables
-├── .gitignore               # Security-hardened ignore rules
-├── start.bat                # One-click launcher (Windows)
-└── README.md
+CTI/
+├── backend/                 # FastAPI + async SQLAlchemy (SQLite)
+│   ├── main.py              # App, lifespan, CORS, APScheduler, /api/health
+│   ├── config.py            # pydantic-settings (.env loader)
+│   ├── database.py          # Async engine + session factory
+│   ├── models.py            # ORM models: FeedArticle, IOC, CVE
+│   ├── feeds/               # rss_poller, ioc_feeds, plugin SDK + plugins/
+│   ├── services/            # enrichment, clustering, summarizer, scoring, ...
+│   └── routers/             # 30 API routers (feed, iocs, dashboard, actors, ...)
+├── frontend/                # React 18 + Vite (29 pages)
+│   └── src/                 # App.jsx, api/client.js, pages/, components/
+├── cli/                     # cti.py command-line client
+├── extension/               # Manifest V3 browser extension
+├── docs/                    # DOCS.md, DEPLOYMENT.md, idea.md, architecture.svg, roadmap
+├── docker-compose.yml       # backend + frontend services
+├── start.bat / stop.bat     # Windows launchers
+└── render.yaml
 ```
+
+Full developer reference and the annotated diagram live in [docs/DOCS.md](docs/DOCS.md) and [docs/architecture.svg](docs/architecture.svg).
 
 ## Quick Start
 
 ### Prerequisites
 
-- **Python 3.10+** installed and on PATH
-- Internet connection (for fetching feeds and CDN resources)
+- **Python 3.11+** on PATH
+- **Node 18+** (frontend build only)
+- Internet access for feeds and enrichment
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/PhinehasNarh/CTI-Cyber-Threat-Intelligence-Toolkit
-cd CTI-Cyber-Threat-Intelligence-Toolkit
-
-```
-
-### 2. Install Dependencies
+### Backend
 
 ```bash
 cd backend
+python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # Linux/Mac
 pip install -r requirements.txt
+python -m uvicorn main:app --reload --port 8000
 ```
 
-### 3. Configure API Keys (Optional)
+The SQLite file `cti.db` is created on first run and the initial feed poll runs immediately.
+
+### Frontend
 
 ```bash
-# Copy the example config
-cp .env.example .env
-
-# Edit .env and add your API keys
-# All keys are optional - the app works without them
+cd frontend
+npm install
+npm run dev
 ```
 
-See [API Keys](#api-keys) below for free signup links.
+The dashboard opens at **http://localhost:5173** and talks to the backend on port 8000.
 
-### 4. Run the Server
+### Both at once
 
-```bash
-# From the backend/ directory
-python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
-```
-
-Or on Windows, double-click **`start.bat`** from the project root and wait a few seconds for the services to start.
-
-### 5. Open the Dashboard
-
-Navigate to **http://localhost:8000** in your browser.
-
-The platform will automatically poll all feeds on startup and then every 30 minutes.
+On Windows, run **`start.bat`** from the project root to launch both servers and open the browser. With Docker, `docker compose up -d --build` brings up both services.
 
 ---
 
 ## API Keys
 
-All integrations use **free tiers**. The platform works without any keys, but enrichment features will be limited.
+All integrations use free tiers, and the platform runs without any of them. Add keys to `backend/.env` to enable richer enrichment.
 
-| Service | What It Powers | Free Tier | Signup Link |
-|---------|---------------|-----------|-------------|
-| **VirusTotal** | IOC lookups, Domain reputation | 4 req/min, 500/day | [virustotal.com](https://www.virustotal.com/gui/join-us) |
-| **AbuseIPDB** | IP reputation & abuse reports | 1,000 checks/day | [abuseipdb.com](https://www.abuseipdb.com/register) |
-| **Shodan** | Port/vuln scanning (InternetDB is free without key) | Limited queries | [shodan.io](https://account.shodan.io/register) |
-| **GreyNoise** | Internet noise & scanner detection | 50 queries/day | [greynoise.io](https://viz.greynoise.io/signup) |
-| **AlienVault OTX** | Additional threat feeds | Generous limits | [otx.alienvault.com](https://otx.alienvault.com/accounts/signup) |
-
-After signing up, add your keys to `backend/.env`:
+| Service | Powers | Free tier | Signup |
+|---------|--------|-----------|--------|
+| **VirusTotal** | Hash, domain, and IP lookups | 4 req/min, 500/day | [virustotal.com](https://www.virustotal.com/gui/join-us) |
+| **AbuseIPDB** | IP reputation and abuse reports | 1,000 checks/day | [abuseipdb.com](https://www.abuseipdb.com/register) |
+| **Shodan InternetDB** | Open ports and vulns for IPs | Keyless | [shodan.io](https://account.shodan.io/register) |
+| **GreyNoise** | Scanner/noise classification (placeholder, not yet wired) | 50 queries/day | [greynoise.io](https://viz.greynoise.io/signup) |
+| **AlienVault OTX** | Additional feeds (placeholder, not yet wired) | Generous | [otx.alienvault.com](https://otx.alienvault.com/accounts/signup) |
 
 ```env
 VIRUSTOTAL_API_KEY=your_key_here
 ABUSEIPDB_API_KEY=your_key_here
 ```
 
-Restart the server for changes to take effect.
+Restart the server after editing `.env`. `GREYNOISE_API_KEY` and `OTX_API_KEY` are defined in `config.py` but not yet attached to any lookup.
 
 ---
 
-## API Endpoints
+## Core API
+
+All routes are prefixed with `/api` and return JSON. The dashboard and the public `/api/v1` surface are documented in full in [docs/DOCS.md](docs/DOCS.md).
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/health` | GET | Server health check |
-| `/api/dashboard` | GET | Dashboard statistics and recent data |
-| `/api/feed` | GET | List feed articles (supports `?search=`, `?source=`) |
-| `/api/feed/poll` | POST | Manually trigger RSS feed polling |
-| `/api/iocs` | GET | List IOCs (supports `?type=`, `?search=`) |
-| `/api/iocs/lookup` | POST | Enrich an IOC via VirusTotal/AbuseIPDB |
-| `/api/iocs/poll` | POST | Manually trigger IOC feed polling |
-| `/api/kev` | GET | List CISA KEV entries (supports `?search=`) |
-| `/api/kev/sync` | POST | Sync KEV catalog from CISA |
-| `/api/intel/ip` | POST | Full IP intelligence report |
-| `/api/intel/domain` | POST | Domain reputation report |
-| `/api/settings` | GET | Current config (API keys masked) |
-| `/api/settings/logs` | GET | View application/access logs |
+| `/api/health` | GET | Status, version, and scheduler state |
+| `/api/dashboard` | GET | Stats, recent articles, IOC breakdown, 7-day trend |
+| `/api/feed` | GET | List articles (`source`, `search`, `starred`, `unread`, `limit`, `offset`) |
+| `/api/feed/sources` | GET | Sources with article counts |
+| `/api/feed/{id}` | PATCH | Mark an article read or starred |
+| `/api/feed/poll` | POST | Trigger an RSS poll |
+| `/api/iocs` | GET | List IOCs (`ioc_type`, `source`, `search`, `limit`, `offset`) |
+| `/api/iocs/stats` | GET | Totals by type and source |
+| `/api/iocs/lookup` | POST | Live enrichment for a value |
+| `/api/iocs/poll` | POST | Trigger an IOC feed poll |
 
----
-
-## Logging
-
-The platform writes two rotating log files in `backend/logs/`:
-
-| File | Contents |
-|------|----------|
-| `cti-platform.log` | All application events: feed polls, errors, scheduler activity |
-| `access.log` | HTTP API requests: method, path, status code, response time |
-
-Logs rotate daily and are retained for **30 days**. View them live from **Settings > Activity Logs** in the UI, or directly:
-
-```bash
-# Tail the main log
-tail -f backend/logs/cti-platform.log
-
-# Windows equivalent
-type backend\logs\cti-platform.log
-```
+Beyond these, routers exist for actors, campaigns, alerts, triage, audit, leaderboard, clusters, chat, CT logs, geo, honeypot, workspaces, assets, integrations, retention, time-lapse, export, the public API (`/api/v1`), API keys, and the feed scheduler.
 
 ---
 
 ## Security Notes
 
-- **Never commit `.env`**, it is excluded by `.gitignore`
-- API keys are **masked** in the Settings UI (only first/last 4 chars shown)
-- The log viewer only serves files from the `logs/` directory (path traversal safe)
-- All external API calls use **HTTPS**
-- The SQLite database file (`*.db`) is excluded from version control
-- CORS is configured for localhost only by default
+- `.env` and the SQLite `*.db` files are excluded from version control by `.gitignore`.
+- The public API uses scoped API keys with a per-key rate limit.
+- External lookups go over HTTPS.
+- CORS is restricted to localhost by default. Set `CORS_ORIGINS` in `.env` before exposing the API.
 
 ---
 
@@ -188,13 +144,13 @@ type backend\logs\cti-platform.log
 
 | Layer | Technology |
 |-------|-----------|
-| **Backend** | Python 3.10+, FastAPI, SQLAlchemy (async), APScheduler |
+| **Backend** | Python 3.11+, FastAPI 0.115, SQLAlchemy 2.0 (async), APScheduler |
 | **Database** | SQLite via aiosqlite (zero config) |
-| **Frontend** | React 18 (UMD, no build step), Tailwind CSS, Recharts |
-| **HTTP Client** | httpx (async) |
-| **Feed Parsing** | feedparser |
+| **Frontend** | React 18, Vite 5, React Router 6, Recharts, Tailwind CSS, Lucide |
+| **HTTP client** | httpx (async) |
+| **Feed parsing** | feedparser |
 
-The frontend uses `React.createElement` directly (no JSX, no Node.js, no build tools required). Everything runs from a single `python -m uvicorn` command.
+The frontend is a standard Vite app, so it needs `npm install` and either `npm run dev` or `npm run build`.
 
 ---
 
